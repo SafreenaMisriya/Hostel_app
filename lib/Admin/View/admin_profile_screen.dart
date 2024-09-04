@@ -11,6 +11,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:hostel_app/Res/AppColors/appColors.dart';
 import 'package:hostel_app/User/View/welcome_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Res/Widgets/CustomTextformField.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../../Res/Widgets/custom_botton.dart';
@@ -212,6 +213,10 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
       });
     }
   }
+ Future<void> clearSharedPreferencesOnLogout() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('userRole');  // Remove the saved role
+}
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +264,8 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                           CustomBotton(
                             width: 100,
                             height: 40,
-                            onTap: () {
+                            onTap: () async{
+                               await clearSharedPreferencesOnLogout();
                               FirebaseAuth.instance.signOut();
                               Get.to(() => const WelcomeScreen());
                             },

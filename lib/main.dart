@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Admin/View/admin_home_screen.dart';
 import 'Res/routes/routes.dart';
 import 'User/Auth/authPage.dart';
@@ -33,10 +34,8 @@ class MyApp extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasData) {
-            // User is authenticated
             return const AuthDecisionScreen();
           } else {
-            // User is not authenticated
             return const AuthPage();
           }
         },
@@ -55,14 +54,16 @@ class AuthDecisionScreen extends StatefulWidget {
 
 class _AuthDecisionScreenState extends State<AuthDecisionScreen> {
   Future<bool?> _getUserRole() async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
     final User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    if (user?.uid != null) {
       try {
         DocumentSnapshot<Map<String, dynamic>> snapshot =
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        await FirebaseFirestore.instance.collection('users').doc(user?.uid).get();
         if (snapshot.exists) {
           final String? role = snapshot.data()?['role'];
           if (role != null) {
+            await prefs.setString('userRole', role.toLowerCase());
             return role.toLowerCase() == 'admin';
           }
         }

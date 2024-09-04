@@ -11,6 +11,7 @@ import 'package:hostel_app/Res/Widgets/CustomTextformField.dart';
 import 'package:hostel_app/Res/Widgets/custom_botton.dart';
 import 'package:hostel_app/User/View/welcome_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
@@ -78,7 +79,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _pickImageFromGallery() async {
-    final returnedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage != null) {
       setState(() {
         _selectedImage = File(returnedImage.path);
@@ -88,7 +90,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _pickImageFromCamera() async {
-    final returnedImage = await ImagePicker().pickImage(source: ImageSource.camera);
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnedImage != null) {
       setState(() {
         _selectedImage = File(returnedImage.path);
@@ -103,42 +106,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (BuildContext bc) {
           return SafeArea(
               child: Container(
-                padding: const EdgeInsets.all(9),
-                height: 140,
-                width: MediaQuery.sizeOf(context).width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+            padding: const EdgeInsets.all(9),
+            height: 140,
+            width: MediaQuery.sizeOf(context).width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Wrap(
+              children: <Widget>[
+                const SizedBox(
+                  height: 30,
                 ),
-                child: Wrap(
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    ListTile(
-                      onTap: () {
-                        _pickImageFromCamera();
-                        Navigator.of(context).pop();
-                      },
-                      leading: const Icon(
-                        Icons.camera_alt,
-                        color: Colors.green,
-                      ),
-                      title: const Text("Camera"),
-                    ),
-                    ListTile(
-                      onTap: () {
-                        _pickImageFromGallery();
-                        Navigator.of(context).pop();
-                      },
-                      leading: const Icon(
-                        Icons.image,
-                        color: Colors.green,
-                      ),
-                      title: const Text("Gallery"),
-                    ),
-                  ],
+                ListTile(
+                  onTap: () {
+                    _pickImageFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                  leading: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.green,
+                  ),
+                  title: const Text("Camera"),
                 ),
-              ));
+                ListTile(
+                  onTap: () {
+                    _pickImageFromGallery();
+                    Navigator.of(context).pop();
+                  },
+                  leading: const Icon(
+                    Icons.image,
+                    color: Colors.green,
+                  ),
+                  title: const Text("Gallery"),
+                ),
+              ],
+            ),
+          ));
         });
   }
 
@@ -153,7 +156,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       String? imageUrl;
 
       if (_selectedImage != null) {
-        firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        firebase_storage.Reference ref = firebase_storage
+            .FirebaseStorage.instance
             .ref()
             .child("HostelApp")
             .child("/images")
@@ -178,7 +182,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const SnackBar(content: Text('Data saved successfully')),
       );
 
-
       setState(() {
         isSaving = false;
         isEnabled = false;
@@ -199,6 +202,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       });
     }
   }
+Future<void> clearSharedPreferencesOnLogout() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('userRole');  // Remove the saved role
+}
 
   void _checkForChanges() {
     if (_firstNameController.text.trim() != userData?['firstName'] ||
@@ -226,7 +233,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-
         iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
         title: const AppText(
@@ -239,7 +245,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           IconButton(
             onPressed: () {
-               showDialog(
+              showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
@@ -268,9 +274,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           CustomBotton(
                             width: 100,
                             height: 40,
-                            onTap: () {
-                               FirebaseAuth.instance.signOut();
-              Get.to(() => const WelcomeScreen());
+                            onTap: () async {
+                              await clearSharedPreferencesOnLogout();
+                              FirebaseAuth.instance.signOut();
+                              Get.to(() => const WelcomeScreen());
                             },
                             label: 'Logout',
                             backgroundColor: Colors.red,
@@ -281,9 +288,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 },
               );
-             
             },
-            icon: const Icon(Icons.logout,color: AppColors.blue3,),
+            icon: const Icon(
+              Icons.logout,
+              color: AppColors.blue3,
+            ),
           ),
         ],
       ),
@@ -297,175 +306,190 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 userData != null
                     ? Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: 150,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            color: AppColors.blue1,
-                            border: Border.all(
-                                width: 2, color: AppColors.blue3),
-                            borderRadius: BorderRadius.circular(100),
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                height: 150,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  color: AppColors.blue1,
+                                  border: Border.all(
+                                      width: 2, color: AppColors.blue3),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: (_selectedImage != null)
+                                        ? Image.file(
+                                            _selectedImage!,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : (userData?["imageUrl"] != '')
+                                            ? CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                progressIndicatorBuilder:
+                                                    (context, url, progress) =>
+                                                        Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            value: progress
+                                                                .progress,
+                                                          ),
+                                                        ),
+                                                imageUrl: userData?["imageUrl"])
+                                            : const Icon(
+                                                Icons.person,
+                                                size: 50,
+                                                color: AppColors.blue3,
+                                              )),
+                              ),
+                              Positioned(
+                                right: 0,
+                                top: 100,
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.blue3,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _showPicker();
+                                    },
+                                    icon: const Icon(Icons.edit,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: (_selectedImage != null)
-                                ? Image.file(
-                              _selectedImage!,
-                              fit: BoxFit.cover,
-                            )
-                                : (userData?["imageUrl"] != '')
-                                ? CachedNetworkImage(
-                                fit: BoxFit.cover,
-                                progressIndicatorBuilder:
-                                    (context, url, progress) =>
-                                    Center(
-                                      child:
-                                      CircularProgressIndicator(
-                                        value: progress
-                                            .progress,
+                          const SizedBox(height: 20),
+                          CustomTextFormField(
+                            controller: _firstNameController,
+                            prefixIcon: Icons.person,
+                            hintText: 'First Name',
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Please enter a valid name';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextFormField(
+                            controller: _emailController,
+                            prefixIcon: Icons.email,
+                            hintText: 'Email',
+                            validator: (value) {
+                              if (value == null ||
+                                  value.trim().isEmpty ||
+                                  !value.contains('@')) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextFormField(
+                            controller: _phoneNumberController,
+                            inputFormatters: [PhoneTextInputFormatter()],
+                            prefixIcon: Icons.phone,
+                            hintText: 'Phone Number',
+                            validator: (value) {
+                              if (value == null ||
+                                  value.trim().isEmpty ||
+                                  value.length != 12) {
+                                return 'Please enter a valid phone number';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextFormField(
+                            controller: _rollNoController,
+                            prefixIcon: Icons.book_rounded,
+                            hintText: 'Roll Number',
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Please enter a valid Roll number';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 145,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: AppColors.blue3),
+                                ),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.door_back_door_outlined,
                                       ),
-                                    ),
-                                imageUrl: userData?["imageUrl"])
-                                : const Icon(Icons.person,size: 50,color: AppColors.blue3,)
-                          ),
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 100,
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: AppColors.blue3,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                _showPicker();
-                              },
-                              icon: const Icon(Icons.edit, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
-                    CustomTextFormField(
-                      controller: _firstNameController,
-                      prefixIcon: Icons.person,
-                      hintText: 'First Name',
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a valid name';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      controller: _emailController,
-                      prefixIcon: Icons.email,
-                      hintText: 'Email',
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty || !value.contains('@')) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      controller: _phoneNumberController,
-                      inputFormatters: [PhoneTextInputFormatter()],
-                      prefixIcon: Icons.phone,
-                      hintText: 'Phone Number',
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty || value.length != 12) {
-                          return 'Please enter a valid phone number';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      controller: _rollNoController,
-                      prefixIcon: Icons.book_rounded,
-                      hintText: 'Roll Number',
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty ) {
-                          return 'Please enter a valid Roll number';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 145,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: AppColors.blue3),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.door_back_door_outlined,
+                                      const SizedBox(
+                                        width: 15,
+                                      ),
+                                      AppText(
+                                        text: 'Room No: ${userData?['room']}',
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(width: 15,),
-                                AppText(
-                                  text: 'Room No: ${userData?['room']}',
+                              ),
+                              Container(
+                                width: 145,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: AppColors.blue3),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 145,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: AppColors.blue3),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const SizedBox(width: 10,),
-                                const Icon(Icons.roofing_sharp),
-                                const SizedBox(width: 15,),
-                                AppText(
-                                  text: 'Block ${userData?['block']}',
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Icon(Icons.roofing_sharp),
+                                      const SizedBox(
+                                        width: 15,
+                                      ),
+                                      AppText(
+                                        text: 'Block ${userData?['block']}',
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    CustomBotton(
-                      onTap: isEnabled ? _saveInfo : null,
-                      label: isSaving ? 'Saving...' : 'Save',
-                      backgroundColor: isEnabled ? AppColors.blue3 : Colors.grey,
-                    ),
-                  ],
-                )
+                          const SizedBox(height: 40),
+                          CustomBotton(
+                            onTap: isEnabled ? _saveInfo : null,
+                            label: isSaving ? 'Saving...' : 'Save',
+                            backgroundColor:
+                                isEnabled ? AppColors.blue3 : Colors.grey,
+                          ),
+                        ],
+                      )
                     : const SizedBox(
-                    height: 40,
-                    width: 30,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.blue3,
-                      ),
-                    )),
+                        height: 40,
+                        width: 30,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.blue3,
+                          ),
+                        )),
               ],
             ),
           ),
@@ -474,12 +498,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+
 class PhoneTextInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     String newText = newValue.text;
 
     // Append "03" to the beginning if it's not already there
