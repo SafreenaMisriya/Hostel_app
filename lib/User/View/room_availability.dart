@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
 
 class RoomAvailability extends StatefulWidget {
-  const RoomAvailability({Key? key});
+  const RoomAvailability({super.key, });
 
   @override
   State<RoomAvailability> createState() => _RoomAvailabilityState();
@@ -17,11 +18,8 @@ class _RoomAvailabilityState extends State<RoomAvailability> {
   @override
   void initState() {
     super.initState();
-    // Initialize rooms if needed (can be moved to a separate initialization method)
     initializeRoomsIfNeeded();
-    // Set up Firestore listener to listen for changes in roomavailability collection
     roomsRef.snapshots().listen((_) {
-      // Update the UI when changes occur
       setState(() {});
     });
   }
@@ -36,8 +34,8 @@ class _RoomAvailabilityState extends State<RoomAvailability> {
 
   Future<void> initializeRooms() async {
     final blocks = ['A', 'B', 'C'];
-    final roomsPerBlock = 4;
-    final seatsPerRoom = 4;
+    const roomsPerBlock = 4;
+    const seatsPerRoom = 4;
 
     for (String block in blocks) {
       for (int roomNumber = 1; roomNumber <= roomsPerBlock; roomNumber++) {
@@ -56,31 +54,37 @@ class _RoomAvailabilityState extends State<RoomAvailability> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color:AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Room Availabilities',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: roomsRef.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No rooms available'));
+            return const Center(child: Text('No rooms available'));
           } else {
             List<DocumentSnapshot> rooms = snapshot.data!.docs;
             return ListView.builder(
               itemCount: rooms.length,
               itemBuilder: (context, index) {
-                return buildCard(rooms[index]);
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    decoration: BoxDecoration(color: AppColors.blue3,borderRadius: BorderRadius.circular(12)),
+                    
+                    child: buildCard(rooms[index])),
+                );
               },
             );
           }
@@ -93,7 +97,7 @@ class _RoomAvailabilityState extends State<RoomAvailability> {
     final data = room.data() as Map<String, dynamic>?;
 
     if (data == null) {
-      return Card(
+      return const Card(
         child: ListTile(
           title: Text('Room Data not available'),
         ),
@@ -105,30 +109,30 @@ class _RoomAvailabilityState extends State<RoomAvailability> {
     final roomNumber = data['room'];
 
     return availableSeats > 0 ? Container(
-      margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-      padding: EdgeInsets.all(5),
+      margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        border:Border.all(color: Colors.green),
+        border:Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(10)
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Image.asset('assets/bed.png',height: 100,width: 100,),
+          ClipOval(child: Image.asset('assets/bed.jpg',height: 100,width: 100,)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Block: $block'),
-              Text('Room: $roomNumber'),
-              Text('Available Seats: $availableSeats'),
+              Text('Block: $block',style: const TextStyle(color: Colors.white),),
+              Text('Room: $roomNumber',style: const TextStyle(color: Colors.white),),
+              Text('Available Seats: $availableSeats',style: const TextStyle(color: Colors.white),),
             ],
 
           ),
         ],
       ),
     ) : Container(
-      margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-      padding: EdgeInsets.all(5),
+      margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
           border:Border.all(color: Colors.green),
           borderRadius: BorderRadius.circular(10)
@@ -142,7 +146,7 @@ class _RoomAvailabilityState extends State<RoomAvailability> {
             children: [
               Text('Block: $block'),
               Text('Room: $roomNumber'),
-              Text('No seats Available',style: TextStyle(color: Colors.red),),
+              const Text('No seats Available',style: TextStyle(color: Colors.red),),
             ],
 
           ),
@@ -163,7 +167,7 @@ class _RoomAvailabilityState extends State<RoomAvailability> {
 
         if (currentAvailableSeats > 0) {
           // Update available seats
-          await transaction.update(roomRef, {
+          transaction.update(roomRef, {
             'availableSeats': currentAvailableSeats - 1,
           });
 
@@ -176,12 +180,12 @@ class _RoomAvailabilityState extends State<RoomAvailability> {
 
           // Inform user registration successful
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Room registered successfully')),
+            const SnackBar(content: Text('Room registered successfully')),
           );
         } else {
           // No seats available
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('No seats available for this room')),
+            const SnackBar(content: Text('No seats available for this room')),
           );
         }
       });

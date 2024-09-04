@@ -24,7 +24,7 @@ class LoginController extends GetxController {
         User? user = userCredential.user;
         if (user != null) {
           if (user.emailVerified) {
-            Get.offAll(() => HomeScreen());
+            Get.offAll(() => const HomeScreen());
           } else {
             await FirebaseAuth.instance.signOut();
             Get.snackbar(

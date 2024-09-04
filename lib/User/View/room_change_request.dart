@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hostel_app/User/View/room_change_request_history.dart';
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/InternetConnectivityError.dart';
 import '../../Res/Widgets/custom_botton.dart';
 import '../../Res/Widgets/CustomTextformField.dart';
 import '../../Res/Widgets/app_text.dart';
-import '../Model/room_change_request_model.dart';
 
 class RoomChangeRequest extends StatefulWidget {
   const RoomChangeRequest({super.key});
@@ -100,7 +100,7 @@ class _RoomChangeRequestState extends State<RoomChangeRequest> {
           });
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('New block and room cannot be the same as the current block and room')),
+            const SnackBar(content: Text('New block and room cannot be the same as the current block and room')),
           );
           return; // Exit the function if the validation fails
         }
@@ -125,7 +125,7 @@ class _RoomChangeRequestState extends State<RoomChangeRequest> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Request submitted successfully')),
+          const SnackBar(content: Text('Request submitted successfully')),
         );
 
         clearForm();
@@ -135,7 +135,7 @@ class _RoomChangeRequestState extends State<RoomChangeRequest> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please fill in all fields')),
+          const SnackBar(content: Text('Please fill in all fields')),
         );
       }
     } else {
@@ -144,7 +144,7 @@ class _RoomChangeRequestState extends State<RoomChangeRequest> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User not logged in')),
+        const SnackBar(content: Text('User not logged in')),
       );
     }
   }
@@ -162,54 +162,55 @@ class _RoomChangeRequestState extends State<RoomChangeRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Room Change Request',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
               onPressed: (){
-                Get.to(()=>RoomChangeRequestHistory());
+                Get.to(()=>const RoomChangeRequestHistory());
               },
-              icon: Icon(Icons.history)),
+              icon: const Icon(Icons.history)),
         ],
       ),
-      body:isSubmitting? InternetConnectivityError(): Padding(
+      body:isSubmitting? const InternetConnectivityError(): Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           shrinkWrap: true,
           children: [
-            AppText(text: 'First Name', fontWeight: FontWeight.w600, fontSize: 16),
-            SizedBox(height: 10),
+            const AppText(text: 'First Name', fontWeight: FontWeight.w600, fontSize: 16),
+            const SizedBox(height: 10),
             CustomTextFormField(
               controller: firstNameController,
               hintText: 'Enter your First Name',
             ),
-            SizedBox(height: 10),
-            AppText(text: 'Last Name', fontWeight: FontWeight.w600, fontSize: 16),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
+            const AppText(text: 'Last Name', fontWeight: FontWeight.w600, fontSize: 16),
+            const SizedBox(height: 10),
             CustomTextFormField(
               controller: lastNameController,
               hintText: 'Enter your Last Name',
             ),
-            SizedBox(height: 10),
-            AppText(text: 'Phone Number', fontWeight: FontWeight.w600, fontSize: 16),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
+            const AppText(text: 'Phone Number', fontWeight: FontWeight.w600, fontSize: 16),
+            const SizedBox(height: 10),
             CustomTextFormField(
               inputFormatters: [PhoneTextInputFormatter()],
               keyboardType: TextInputType.number,
               controller: phoneController,
               hintText: 'Enter your Phone Number',
             ),
-            SizedBox(height: 10),
-            AppText(text: 'Current Block and Room No:', fontWeight: FontWeight.w600, fontSize: 16),
-            SizedBox(height: 20),
+            const SizedBox(height: 10),
+            const AppText(text: 'Current Block and Room No:', fontWeight: FontWeight.w600, fontSize: 16),
+            const SizedBox(height: 20),
             Row(
               children: [
                 CustomTextFormField(
@@ -219,7 +220,7 @@ class _RoomChangeRequestState extends State<RoomChangeRequest> {
                   controller: currentBlockController,
                   hintText: 'Enter your Block ',
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 CustomTextFormField(
                   readOnly: true,
                   width: 150,
@@ -229,30 +230,30 @@ class _RoomChangeRequestState extends State<RoomChangeRequest> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            AppText(text: 'Shift to Block and Room No:', fontWeight: FontWeight.w600, fontSize: 16),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            const AppText(text: 'Shift to Block and Room No:', fontWeight: FontWeight.w600, fontSize: 16),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    iconEnabledColor: Colors.green,
+                    iconEnabledColor: AppColors.blue3,
                     value: newBlock,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: AppColors.blue3),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: AppColors.blue3),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: AppColors.blue3),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    hint: Text('Select Block'),
+                    hint: const Text('Select Block'),
                     onChanged: (value) {
                       setState(() {
                         newBlock = value;
@@ -264,49 +265,49 @@ class _RoomChangeRequestState extends State<RoomChangeRequest> {
                     )).toList(),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    iconEnabledColor: Colors.green,
+                    iconEnabledColor: AppColors.blue3,
                     value: newRoomNo,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: AppColors.blue3),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: AppColors.blue3),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: AppColors.blue3),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    hint: Text('Select Room'),
+                    hint: const Text('Select Room'),
                     onChanged: (value) {
                       setState(() {
                         newRoomNo = value;
                       });
                     },
                     items: ['1', '2', '3'].map((roomNo) => DropdownMenuItem(
-                      value: '$roomNo',
-                      child: Text('$roomNo'),
+                      value: roomNo,
+                      child: Text(roomNo),
                     )).toList(),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            AppText(text: 'Reason for change', fontWeight: FontWeight.w600, fontSize: 16),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            const AppText(text: 'Reason for change', fontWeight: FontWeight.w600, fontSize: 16),
+            const SizedBox(height: 20),
             CustomTextFormField(
               height: 200,
               maxLines: 5,
               hintText: 'Reason',
               controller: reasonController,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             CustomBotton(
               label: isSubmitting ? 'Submitting...' : 'Submit',
               onTap: submitRequest,

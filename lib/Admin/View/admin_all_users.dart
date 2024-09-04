@@ -4,13 +4,13 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:hostel_app/Admin/View/admin_deleted_users_history.dart';
 import 'dart:io';
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../../Res/Widgets/custom_botton.dart';
-import '../Model/room_availability_model.dart';
 import 'challans_screen.dart'; // Import the new screen
 
 class AdminAllUsers extends StatefulWidget {
-  const AdminAllUsers({Key? key}) : super(key: key);
+  const AdminAllUsers({super.key});
 
   @override
   State<AdminAllUsers> createState() => _AdminAllUsersState();
@@ -23,22 +23,23 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'All Users',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(() => AdminDeletedUsers());
+              Get.to(() => const AdminDeletedUsers());
             },
-            icon: Icon(Icons.history),
+            icon: const Icon(Icons.history,color: AppColors.blue3,),
           ),
         ],
       ),
@@ -52,7 +53,7 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -73,127 +74,138 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
                     showUserDetailsDialog(context, userData);
                   },
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                   height: 150,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.green.shade50,
+                      color:  AppColors.blue2 ,
                     ),
-                    child: Row(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            userData?['imageUrl'] != null
-                                ? Container(
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(color: Colors.green),
-                              ),
-                              child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              userData['imageUrl'] != null
+                                  ? Container(
+                                padding: const EdgeInsets.all(4),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(color: Colors.grey),
+                                  border: Border.all(color: Colors.white),
                                 ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.network(
-                                    userData!['imageUrl'],
-                                    width: 50,
-                                    height: 50,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Image.asset('assets/person.png', width: 50, height: 50);
-                                    },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                      
+                                    shape: BoxShape.circle,
+                                    color: AppColors.blue1,
+                                    border: Border.all(color: AppColors.blue1),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                      userData['imageUrl'],
+                                      width: 50,
+                                      height: 50,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Image.asset('assets/person.png', width: 50, height: 50);
+                                      },
+                                    ),
                                   ),
                                 ),
+                              )
+                                  : Image.asset('assets/person.png', width: 50, height: 50),
+                              const SizedBox(height: 10),
+                              AppText(
+                                text: userData['firstName'] != null
+                                    ? userData['firstName'].toLowerCase().substring(0, userData['firstName'].length > 15 ? 15 : userData['firstName'].length)
+                                    : '',
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                textColor: Colors.white
                               ),
-                            )
-                                : Image.asset('assets/person.png', width: 50, height: 50),
-                            SizedBox(height: 10),
-                            AppText(
-                              text: userData != null && userData!['firstName'] != null
-                                  ? userData!['firstName'].toLowerCase().substring(0, userData!['firstName'].length > 15 ? 15 : userData!['firstName'].length)
-                                  : '',
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-
-                            SizedBox(height: 5),
-                          ],
-                        ),
-                        SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText(
-                              text: 'Email: ${userData['email']}',
-                              fontSize: 12,
-                            ),
-                            AppText(
-                              text: 'Phone No: ${userData['phoneNumber']}',
-                              fontSize: 12,
-                            ),
-                            AppText(
-                              text: 'Block: ${userData['block']}',
-                              fontSize: 12,
-                            ),
-                            AppText(
-                              text: 'Room No: ${userData['room']}',
-                              fontSize: 12,
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                CustomBotton(
-                                  fontSize: 10,
-                                  borderRadius: 5,
-                                  width: 60,
-                                  height: 25,
-                                  label: 'Delete',
-                                  backgroundColor: Colors.red,
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text('Confirm Delete'),
-                                        content: Text('Are you sure you want to delete this user?'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () async {
-                                              Navigator.of(context).pop(); // Close the dialog
-                                              // Move user data to history collection
-                                              await moveUserDataToHistory(userId, userData);
-                                              // Delete user from main collection
-                                              await usersCollection.doc(userId).delete();
-                                            },
-                                            child: Text('Delete'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop(); // Close the dialog
-                                            },
-                                            child: Text('Cancel'),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                      
+                              const SizedBox(height: 5),
+                            ],
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                text: 'Email: ${userData['email']}',
+                                fontSize: 12,
+                                textColor: Colors.white,
+                              ),
+                              AppText(
+                                text: 'Phone No: ${userData['phoneNumber']}',
+                                fontSize: 12,
+                                textColor: Colors.white,
+                              ),
+                              AppText(
+                                text: 'Block: ${userData['block']}',
+                                fontSize: 12,
+                                textColor: Colors.white,
+                              ),
+                              AppText(
+                                text: 'Room No: ${userData['room']}',
+                                fontSize: 12,
+                                textColor: Colors.white,
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  CustomBotton(
+                                    fontSize: 14,
+                                    borderRadius: 5,
+                                    fontWeight: FontWeight.bold,
+                                    width: 150,
+                                    height: 40,
+                                    label: 'Delete',
+                                    backgroundColor: Colors.red,
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text('Confirm Delete'),
+                                          content: const Text('Are you sure you want to delete this user?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () async {
+                                                Navigator.of(context).pop(); // Close the dialog
+                                                // Move user data to history collection
+                                                await moveUserDataToHistory(userId, userData);
+                                                // Delete user from main collection
+                                                await usersCollection.doc(userId).delete();
+                                              },
+                                              child: const Text('Delete'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop(); // Close the dialog
+                                              },
+                                              child: const Text('Cancel'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
               },
             ),
           )
-              : Center(
+              : const Center(
             child: AppText(
               text: 'No Data Found',
               fontWeight: FontWeight.bold,
@@ -227,7 +239,7 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
     List<DocumentSnapshot> paidChallans = [];
     List<DocumentSnapshot> unpaidChallans = [];
 
-    challansList.forEach((challan) {
+    for (var challan in challansList) {
       if (challan['status'] == 'Paid') {
         paidChallans.add(challan);
         paidCount++;
@@ -235,7 +247,7 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
         unpaidChallans.add(challan);
         unpaidCount++;
       }
-    });
+    }
 
     // Show AlertDialog with user details and counts
     showDialog(
@@ -252,11 +264,11 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
                 Text('Room: ${userData['room']}'),
                 Text('Roll No: ${userData['rollNo']}'),
                 Text('CNIC: ${userData['cnic']}'),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 userData['cnicImageUrl'] != null
                     ? _buildImageWidget(userData['cnicImageUrl'])
                     : Container(),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -282,7 +294,7 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -314,7 +326,7 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Close'),
+              child: const Text('Close'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -383,7 +395,7 @@ class _AdminAllUsersState extends State<AdminAllUsers> {
     try {
       final isImage = _isImage(imageUrl);
 
-      return Container(
+      return SizedBox(
         width: 100,
         height: 150,
         child: isImage

@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hostel_app/Res/Widgets/InternetConnectivityError.dart';
 import 'package:intl/intl.dart';
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../../User/Model/create_challan.dart';
 import 'create_hostel_challan.dart';
 
 class AdminHostelFeeScreen extends StatefulWidget {
-  const AdminHostelFeeScreen({Key? key}) : super(key: key);
+  const AdminHostelFeeScreen({super.key});
 
   @override
   State<AdminHostelFeeScreen> createState() => _AdminHostelFeeScreenState();
@@ -46,33 +47,34 @@ class _AdminHostelFeeScreenState extends State<AdminHostelFeeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Hostel Fees',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: Colors.black,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(() => CreateHostelChallan());
+              Get.to(() => const CreateHostelChallan());
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add,color: AppColors.blue3,),
           ),
         ],
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : challansList.isNotEmpty
           ? StreamBuilder<QuerySnapshot>(
         stream: _challanCollection.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return InternetConnectivityError();
+            return const InternetConnectivityError();
           }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -105,11 +107,11 @@ class _AdminHostelFeeScreenState extends State<AdminHostelFeeScreen> {
                 },
               ),
             )
-                : Center(child: Text('No Challans Found'));
+                : const Center(child: Text('No Challans Found'));
           }
-          return Center(child: Text('No data available'));
+          return const Center(child: Text('No data available'));
         },
-      ):Center(child: Text('No data available')),
+      ):const Center(child: Text('No data available')),
     );
   }
 
@@ -118,7 +120,7 @@ class _AdminHostelFeeScreenState extends State<AdminHostelFeeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Challan Details'),
+          title: const Text('Challan Details'),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -147,13 +149,13 @@ class _AdminHostelFeeScreenState extends State<AdminHostelFeeScreen> {
                   changeStatus(challan.id);
                   Navigator.of(context).pop();
                 },
-                child: Text('Mark as Paid'),
+                child: const Text('Mark as Paid'),
               ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );
@@ -169,9 +171,9 @@ class _AdminHostelFeeScreenState extends State<AdminHostelFeeScreen> {
         children: [
           Text(
             '$label:',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(value),
           ),
@@ -186,13 +188,13 @@ class _AdminHostelFeeScreenState extends State<AdminHostelFeeScreen> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          gradient: LinearGradient(
-            colors: [Colors.green.shade50, Colors.green.shade100],
+          gradient: const LinearGradient(
+            colors: [AppColors.blue1, AppColors.blue3],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -201,8 +203,8 @@ class _AdminHostelFeeScreenState extends State<AdminHostelFeeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHistoryHeader(),
-            Divider(color: Colors.green.shade200, thickness: 1),
-            SizedBox(height: 10),
+            const Divider(color: AppColors.blue1, thickness: 1),
+            const SizedBox(height: 10),
             _buildHistoryRow(sr, challan, amount, status),
           ],
         ),
@@ -278,7 +280,7 @@ class _AdminHostelFeeScreenState extends State<AdminHostelFeeScreen> {
               color: statusColor,
               size: 16,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             AppText(
               text: status,
               fontSize: 12,

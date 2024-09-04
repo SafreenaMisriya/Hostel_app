@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../AppColors/appColors.dart';
+
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final double? height,width;
@@ -44,10 +46,10 @@ class CustomTextFormField extends StatelessWidget {
         maxLines: maxLines ?? 1,
         onFieldSubmitted: onFieldSubmitted,
         controller: controller,
-        cursorColor: Colors.green,
+        cursorColor: AppColors.blue3,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey,fontSize: 14,fontWeight: FontWeight.w400),
+          hintStyle: const TextStyle(color: Colors.grey,fontSize: 14,fontWeight: FontWeight.w400),
           prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
           suffixIcon: suffixIcon != null
               ? GestureDetector(
@@ -64,11 +66,11 @@ class CustomTextFormField extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: borderColor??Colors.green),
+            borderSide: BorderSide(color: borderColor??AppColors.blue3),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(width: 1.5, color: Colors.green),
+            borderSide: const BorderSide(width: 1.5, color: AppColors.blue3),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

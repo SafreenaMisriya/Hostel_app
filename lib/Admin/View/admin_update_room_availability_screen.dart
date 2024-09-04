@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hostel_app/Res/AppColors/appColors.dart';
 import 'package:hostel_app/Res/Widgets/InternetConnectivityError.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../../Res/Widgets/custom_botton.dart';
 import '../Model/room_availability_model.dart';
 
-
 class UpdateRoomAvailabilityScreen extends StatefulWidget {
-  const UpdateRoomAvailabilityScreen({Key? key}) : super(key: key);
+  const UpdateRoomAvailabilityScreen({super.key});
 
   @override
-  State<UpdateRoomAvailabilityScreen> createState() => _UpdateRoomAvailabilityScreenState();
+  State<UpdateRoomAvailabilityScreen> createState() =>
+      _UpdateRoomAvailabilityScreenState();
 }
 
-class _UpdateRoomAvailabilityScreenState extends State<UpdateRoomAvailabilityScreen> {
+class _UpdateRoomAvailabilityScreenState
+    extends State<UpdateRoomAvailabilityScreen> {
   final GlobalKey<FormState> _roomAvailablityFormKey = GlobalKey<FormState>();
   String? selectedRoom;
   String? selectedBlock;
@@ -22,177 +24,183 @@ class _UpdateRoomAvailabilityScreenState extends State<UpdateRoomAvailabilityScr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Update Room Availability',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: isLoading
-          ? InternetConnectivityError()
+          ? const InternetConnectivityError()
           : SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _roomAvailablityFormKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20,),
-                  AppText(
-                    text: 'Room No:',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SizedBox(height: 10),
-                  DropdownButtonFormField<String>(
-                    iconEnabledColor: Colors.green,
-                    value: selectedRoom,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _roomAvailablityFormKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const AppText(
+                          text: 'Room No:',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const SizedBox(height: 10),
+                        DropdownButtonFormField<String>(
+                          iconEnabledColor: AppColors.blue3,
+                          value: selectedRoom,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          hint: const Text('Select Room'),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedRoom = value;
+                            });
+                          },
+                          items: ['1', '2', '3', '4']
+                              .map((room) => DropdownMenuItem(
+                                    value: room,
+                                    child: Text(room),
+                                  ))
+                              .toList(),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a room';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        const AppText(
+                          text: 'Block:',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const SizedBox(height: 10),
+                        DropdownButtonFormField<String>(
+                          iconEnabledColor: AppColors.blue3,
+                          value: selectedBlock,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          hint: const Text('Select Block'),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedBlock = value;
+                            });
+                          },
+                          items: ['A', 'B', 'C']
+                              .map((block) => DropdownMenuItem(
+                                    value: block,
+                                    child: Text(block),
+                                  ))
+                              .toList(),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a block';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        const AppText(
+                          text: 'Available Seats:',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const SizedBox(height: 10),
+                        DropdownButtonFormField<String>(
+                          iconEnabledColor: AppColors.blue3,
+                          value: availableSeats,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: AppColors.blue3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          hint: const Text('Select Capacity'),
+                          onChanged: (value) {
+                            setState(() {
+                              availableSeats = value;
+                            });
+                          },
+                          items: ['1', '2', '3', '4']
+                              .map((capacity) => DropdownMenuItem(
+                                    value: capacity,
+                                    child: Text(capacity),
+                                  ))
+                              .toList(),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a capacity';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 50),
+                        CustomBotton(
+                          onTap: () {
+                            if (_roomAvailablityFormKey.currentState!
+                                .validate()) {
+                              saveRoomAvailability();
+                            }
+                          },
+                          label: 'Create Available Seats',
+                          backgroundColor: AppColors.blue3,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
                     ),
-                    hint: Text('Select Room'),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedRoom = value;
-                      });
-                    },
-                    items: ['1', '2', '3', '4']
-                        .map((room) => DropdownMenuItem(
-                      value: room,
-                      child: Text(room),
-                    ))
-                        .toList(),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please select a room';
-                      }
-                      return null;
-                    },
                   ),
-                  SizedBox(height: 10),
-                  AppText(
-                    text: 'Block:',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SizedBox(height: 10),
-                  DropdownButtonFormField<String>(
-                    iconEnabledColor: Colors.green,
-                    value: selectedBlock,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    hint: Text('Select Block'),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedBlock = value;
-                      });
-                    },
-                    items: ['A', 'B', 'C']
-                        .map((block) => DropdownMenuItem(
-                      value: block,
-                      child: Text(block),
-                    ))
-                        .toList(),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please select a block';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 10),
-                  AppText(
-                    text: 'Available Seats:',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SizedBox(height: 10),
-                  DropdownButtonFormField<String>(
-                    iconEnabledColor: Colors.green,
-                    value: availableSeats,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    hint: Text('Select Capacity'),
-                    onChanged: (value) {
-                      setState(() {
-                        availableSeats = value;
-                      });
-                    },
-                    items: ['1', '2', '3', '4']
-                        .map((capacity) => DropdownMenuItem(
-                      value: capacity,
-                      child: Text(capacity),
-                    ))
-                        .toList(),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please select a capacity';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 50),
-                  CustomBotton(
-                    onTap: () {
-                      if (_roomAvailablityFormKey.currentState!.validate()) {
-                        saveRoomAvailability();
-                      }
-                    },
-                    label: 'Create Available Seats',
-                    backgroundColor: Colors.green,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  )
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -209,23 +217,25 @@ class _UpdateRoomAvailabilityScreenState extends State<UpdateRoomAvailabilityScr
       capacity: int.parse(availableSeats!),
     );
 
-    final docId = '${roomAvailability.block}_Room${roomAvailability.roomNumber}';
+    final docId =
+        '${roomAvailability.block}_Room${roomAvailability.roomNumber}';
 
     try {
-      final docRef = FirebaseFirestore.instance.collection('roomavailability').doc(docId);
+      final docRef =
+          FirebaseFirestore.instance.collection('roomavailability').doc(docId);
       final docSnapshot = await docRef.get();
 
       if (docSnapshot.exists) {
         // Update existing document
         await docRef.update(roomAvailability.toJson());
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Room availability updated successfully')),
+          const SnackBar(content: Text('Room availability updated successfully')),
         );
       } else {
         // Create new document
         await docRef.set(roomAvailability.toJson());
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Room availability added successfully')),
+          const SnackBar(content: Text('Room availability added successfully')),
         );
       }
 
@@ -246,5 +256,3 @@ class _UpdateRoomAvailabilityScreenState extends State<UpdateRoomAvailabilityScr
     }
   }
 }
-
-

@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
 
 class RoomChangeRequestHistory extends StatefulWidget {
   const RoomChangeRequestHistory({super.key});
 
   @override
-  State<RoomChangeRequestHistory> createState() => _RoomChangeRequestHistoryState();
+  State<RoomChangeRequestHistory> createState() =>
+      _RoomChangeRequestHistoryState();
 }
 
 class _RoomChangeRequestHistoryState extends State<RoomChangeRequestHistory> {
@@ -17,16 +18,17 @@ class _RoomChangeRequestHistoryState extends State<RoomChangeRequestHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Room Change Request ',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -37,11 +39,11 @@ class _RoomChangeRequestHistoryState extends State<RoomChangeRequestHistory> {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return Center(child: Text('No requests found'));
+              return const Center(child: Text('No requests found'));
             }
 
             var requests = snapshot.data!.docs;
@@ -54,9 +56,8 @@ class _RoomChangeRequestHistoryState extends State<RoomChangeRequestHistory> {
 
                 return Card(
                   elevation: 5,
-                  surfaceTintColor: Colors.green,
-                  shadowColor: Colors.green,
-                  margin: EdgeInsets.symmetric(vertical: 10),
+                  color: const Color.fromARGB(255, 211, 239, 244),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -67,18 +68,29 @@ class _RoomChangeRequestHistoryState extends State<RoomChangeRequestHistory> {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.person, color: Colors.green),
-                            SizedBox(width: 10),
-                            AppText(text: 'Name:',fontWeight: FontWeight.bold, fontSize: 14,),
-                            AppText(
-                              text: '${request['firstName']}'.length > 16 ? ' ${request['firstName']}'.substring(0, 16) : ' ${request['firstName']}',
+                            const Icon(Icons.person, color: AppColors.blue3),
+                            const SizedBox(width: 10),
+                            const AppText(
+                              text: 'Name:',
+                              fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
-                            Spacer(),
+                            AppText(
+                              text: '${request['firstName']}'.length > 16
+                                  ? ' ${request['firstName']}'.substring(0, 16)
+                                  : ' ${request['firstName']}',
+                              fontSize: 14,
+                            ),
+                            const Spacer(),
                             Container(
-                              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
                               decoration: BoxDecoration(
-                                color: status == 'Approved' ? Colors.green : status == 'Rejected' ? Colors.red : Colors.orange,
+                                color: status == 'Approved'
+                                    ? Colors.green
+                                    : status == 'Rejected'
+                                        ? Colors.red
+                                        : Colors.orange,
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: AppText(
@@ -90,38 +102,44 @@ class _RoomChangeRequestHistoryState extends State<RoomChangeRequestHistory> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Row(
                           children: [
-                            Icon(Icons.location_on, color: Colors.green),
-                            SizedBox(width: 10),
-                            AppText(
+                            const Icon(Icons.location_on, color: AppColors.blue3),
+                            const SizedBox(width: 10),
+                            const AppText(
                               text: 'Current: ',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                             ),
-                            AppText(text: 'Block ${request['currentBlock']}, Room No:${request['currentRoomNo']}'),
+                            AppText(
+                                text:
+                                    'Block ${request['currentBlock']}, Room No:${request['currentRoomNo']}'),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
-                            Icon(Icons.swap_horiz, color: Colors.green),
-                            SizedBox(width: 10),
-                            AppText(
+                            const Icon(Icons.swap_horiz, color: AppColors.blue3),
+                            const SizedBox(width: 10),
+                            const AppText(
                               text: 'New: ',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                             ),
-                            AppText(text: '${request['newBlock']}, ${request['newRoomNo']}'),
+                            AppText(
+                                text:
+                                    '${request['newBlock']}, ${request['newRoomNo']}'),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
-                            Icon(Icons.phone, color: Colors.green),
-                            SizedBox(width: 10),
-                            AppText(
+                            const Icon(Icons.phone, color: AppColors.blue3),
+                            const SizedBox(width: 10),
+                            const AppText(
                               text: 'Phone:',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
@@ -129,21 +147,21 @@ class _RoomChangeRequestHistoryState extends State<RoomChangeRequestHistory> {
                             AppText(text: ' ${request['phoneNumber']}')
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(Icons.message, color: Colors.green),
-                            SizedBox(width: 10),
-                            AppText(
+                            const Icon(Icons.message, color: AppColors.blue3),
+                            const SizedBox(width: 10),
+                            const AppText(
                               text: 'Reason: ',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                             ),
-                            Expanded(child: AppText(text: '${request['reason']}'))
+                            Expanded(
+                                child: AppText(text: '${request['reason']}'))
                           ],
                         ),
-
                       ],
                     ),
                   ),

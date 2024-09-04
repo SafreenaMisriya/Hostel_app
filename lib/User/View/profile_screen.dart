@@ -12,11 +12,12 @@ import 'package:hostel_app/Res/Widgets/custom_botton.dart';
 import 'package:hostel_app/User/View/welcome_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../Auth/firestore.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -102,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (BuildContext bc) {
           return SafeArea(
               child: Container(
-                padding: EdgeInsets.all(9),
+                padding: const EdgeInsets.all(9),
                 height: 140,
                 width: MediaQuery.sizeOf(context).width,
                 decoration: BoxDecoration(
@@ -174,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         'rollNo': _rollNoController.text.trim(),
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Data saved successfully')),
+        const SnackBar(content: Text('Data saved successfully')),
       );
 
 
@@ -223,23 +224,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _rollNoController.addListener(_checkForChanges);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
+
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
         title: const AppText(
           text: 'Profile Screen',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: () {
-              FirebaseAuth.instance.signOut();
-              Get.to(() => WelcomeScreen());
+               showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    backgroundColor: AppColors.bgcolor,
+                    title: const Text(
+                      'Are you sure you want to logout ?',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    icon: const Icon(
+                      Icons.mood_bad_rounded,
+                      color: AppColors.blue3,
+                      size: 50,
+                    ),
+                    actions: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          CustomBotton(
+                            width: 100,
+                            height: 40,
+                            onTap: () => Navigator.pop(context),
+                            label: 'Cancel',
+                            textColor: Colors.black,
+                            backgroundColor: Colors.white,
+                          ),
+                          CustomBotton(
+                            width: 100,
+                            height: 40,
+                            onTap: () {
+                               FirebaseAuth.instance.signOut();
+              Get.to(() => const WelcomeScreen());
+                            },
+                            label: 'Logout',
+                            backgroundColor: Colors.red,
+                          ),
+                        ],
+                      )
+                    ],
+                  );
+                },
+              );
+             
             },
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.logout,color: AppColors.blue3,),
           ),
         ],
       ),
@@ -260,9 +304,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 150,
                           width: 150,
                           decoration: BoxDecoration(
-                            color: Colors.green.shade100,
+                            color: AppColors.blue1,
                             border: Border.all(
-                                width: 2, color: Colors.green),
+                                width: 2, color: AppColors.blue3),
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: ClipRRect(
@@ -285,7 +329,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ),
                                     ),
                                 imageUrl: userData?["imageUrl"])
-                                : Icon(Icons.person,size: 50,color: Colors.green,)
+                                : const Icon(Icons.person,size: 50,color: AppColors.blue3,)
                           ),
                         ),
                         Positioned(
@@ -295,7 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 40,
                             width: 40,
                             decoration: BoxDecoration(
-                              color: Colors.green,
+                              color: AppColors.blue3,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: IconButton(
@@ -308,7 +352,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     CustomTextFormField(
                       controller: _firstNameController,
@@ -367,17 +411,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.green),
+                            border: Border.all(color: AppColors.blue3),
                           ),
                           child: Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.door_back_door_outlined,
+                                const Icon(Icons.door_back_door_outlined,
                                 ),
-                                SizedBox(width: 15,),
+                                const SizedBox(width: 15,),
                                 AppText(
-                                  text: 'Room No: ${userData?['room']}'?? '',
+                                  text: 'Room No: ${userData?['room']}',
                                 ),
                               ],
                             ),
@@ -388,17 +432,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.green),
+                            border: Border.all(color: AppColors.blue3),
                           ),
                           child: Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                SizedBox(width: 10,),
-                                Icon(Icons.roofing_sharp),
-                                SizedBox(width: 15,),
+                                const SizedBox(width: 10,),
+                                const Icon(Icons.roofing_sharp),
+                                const SizedBox(width: 15,),
                                 AppText(
-                                  text: 'Block ${userData?['block']}' ?? '',
+                                  text: 'Block ${userData?['block']}',
                                 ),
                               ],
                             ),
@@ -410,16 +454,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     CustomBotton(
                       onTap: isEnabled ? _saveInfo : null,
                       label: isSaving ? 'Saving...' : 'Save',
-                      backgroundColor: isEnabled ? Colors.green : Colors.grey,
+                      backgroundColor: isEnabled ? AppColors.blue3 : Colors.grey,
                     ),
                   ],
                 )
-                    : SizedBox(
+                    : const SizedBox(
                     height: 40,
                     width: 30,
                     child: Center(
                       child: CircularProgressIndicator(
-                        color: Colors.green,
+                        color: AppColors.blue3,
                       ),
                     )),
               ],

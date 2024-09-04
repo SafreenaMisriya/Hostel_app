@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:hostel_app/Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
 import 'dart:io';
 
@@ -8,7 +9,7 @@ import '../../Res/Widgets/custom_botton.dart';
 import 'challans_screen.dart';
 
 class AdminDeletedUsers extends StatefulWidget {
-  const AdminDeletedUsers({Key? key}) : super(key: key);
+  const AdminDeletedUsers({super.key});
 
   @override
   State<AdminDeletedUsers> createState() => _AdminDeletedUsersState();
@@ -20,16 +21,17 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Deleted Users',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: StreamBuilder(
         stream: deletedUsersCollection.snapshots(),
@@ -41,7 +43,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -62,8 +64,8 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
                     showUserDetailsDialog(context, userData);
                   },
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    padding: EdgeInsets.symmetric(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 10),
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -81,7 +83,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
                               width: 70,
                               height: 70,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             AppText(
@@ -90,10 +92,10 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -116,7 +118,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
                               text: 'Room No: ${userData['room']}',
                               fontSize: 12,
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                           ],
                         ),
                       ],
@@ -126,7 +128,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
               },
             ),
           )
-              : Center(
+              : const Center(
             child: AppText(
               text: 'No Deleted Users Found',
               fontWeight: FontWeight.bold,
@@ -160,7 +162,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
     List<DocumentSnapshot> paidChallans = [];
     List<DocumentSnapshot> unpaidChallans = [];
 
-    challansList.forEach((challan) {
+    for (var challan in challansList) {
       if (challan['status'] == 'Paid') {
         paidChallans.add(challan);
         paidCount++;
@@ -168,7 +170,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
         unpaidChallans.add(challan);
         unpaidCount++;
       }
-    });
+    }
 
     // Show AlertDialog with user details and counts
     showDialog(
@@ -185,11 +187,11 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
                 Text('Room: ${userData['room']}'),
                 Text('Roll No: ${userData['rollNo']}'),
                 Text('CNIC: ${userData['cnic']}'),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 userData['cnicImageUrl'] != null
                     ? _buildImageWidget(userData['cnicImageUrl'])
                     : Container(),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -215,7 +217,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -247,7 +249,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Close'),
+              child: const Text('Close'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -261,7 +263,7 @@ class _AdminDeletedUsersState extends State<AdminDeletedUsers> {
   bool isImage = false;
   Widget _buildImageWidget(String imageUrl) {
     try {
-      return Container(
+      return SizedBox(
         width: 100,
         height: 200,
         child: isImage

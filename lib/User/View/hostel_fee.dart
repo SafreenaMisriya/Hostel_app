@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,7 +11,7 @@ import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Model/create_challan.dart';
+import '../../Res/AppColors/appColors.dart';
 
 class HostelFee extends StatefulWidget {
   const HostelFee({super.key});
@@ -81,24 +80,25 @@ class _HostelFeeState extends State<HostelFee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Hostel Fees',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(onPressed: () {
             Get.toNamed(RouteName.historyScreen);
-          }, icon: Icon(Icons.history)),
+          }, icon: const Icon(Icons.history)),
           if(challanData != null)
           IconButton(onPressed: () {
             _printForm();
-          }, icon: Icon(Icons.print)),
+          }, icon: const Icon(Icons.print)),
         ],
       ),
       body:SafeArea(
@@ -114,14 +114,18 @@ class _HostelFeeState extends State<HostelFee> {
                   height: 200.0,
                   semanticsLabel: 'Hostel Fees',
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   height: 400,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.green, width: 3),
-                    color: Colors.green.shade100,
+                    border: Border.all(color:AppColors.blue3, width: 3),
+                   gradient: const LinearGradient(
+            colors: [AppColors.blue1, AppColors.blue3],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -129,79 +133,80 @@ class _HostelFeeState extends State<HostelFee> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppText(text: 'Hostel Details', fontWeight: FontWeight.w600, fontSize: 18),
+                        const AppText(text: 'Hostel Details', fontWeight: FontWeight.w600, fontSize: 18, ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(text: 'Name: ', fontWeight: FontWeight.w500),
+                            const AppText(text: 'Name: ', fontWeight: FontWeight.w500, textColor: Colors.white,),
                             AppText(
                               text: userData != null && userData!['firstName'] != null
-                                  ? userData!['firstName'].toLowerCase().substring(0, userData!['firstName'].length > 15 ? 15 : userData!['firstName'].length)
+                                  ? userData!['firstName'].toLowerCase().substring(0, userData!['firstName'].length > 16 ? 16 : userData!['firstName'].length)
                                   : '',
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
+                               textColor: Colors.white,
                             ),
 
-                            Spacer(),
-                            AppText(text: 'RollNo: ', fontWeight: FontWeight.w500),
-                            AppText(text: '${userData?["rollNo"]}'),
+                            const Spacer(),
+                            const AppText(text: 'RollNo: ', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${userData?["rollNo"]}', textColor: Colors.white,),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(text: 'Block No: ', fontWeight: FontWeight.w500),
-                            AppText(text: '${userData?["block"]}'),
-                            Spacer(),
-                            AppText(text: 'Room No: ', fontWeight: FontWeight.w500),
-                            AppText(text: '${userData?["room"]}'),
+                            const AppText(text: 'Block No: ', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${userData?["block"]}', textColor: Colors.white,),
+                            const Spacer(),
+                            const AppText(text: 'Room No: ', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${userData?["room"]}', textColor: Colors.white,),
                           ],
                         ),
-                        AppText(text: 'Payment Details', fontWeight: FontWeight.w600, fontSize: 18),
+                        const AppText(text: 'Payment Details', fontWeight: FontWeight.w600, fontSize: 18, ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(text: 'Mess Fee:', fontWeight: FontWeight.w500),
-                            AppText(text: '${challanData?["messFee"]??'5000'}/- PKR'),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppText(text: 'Parking charges:', fontWeight: FontWeight.w500),
-                            AppText(text: '${challanData?["parkingCharges"]??'100'}/- PKR'),
+                            const AppText(text: 'Mess Fee:', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${challanData?["messFee"]??'5000'}/- PKR', textColor: Colors.white,),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(text: 'Electricity Fee:', fontWeight: FontWeight.w500),
-                            AppText(text: '${challanData?["electricityFee"]??'100'}/- PKR'),
+                            const AppText(text: 'Parking charges:', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${challanData?["parkingCharges"]??'100'}/- PKR', textColor: Colors.white,),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(text: 'Water charges:', fontWeight: FontWeight.w500),
-                            AppText(text: '${challanData?["waterCharges"]??'200'}/- PKR'),
+                            const AppText(text: 'Electricity Fee:', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${challanData?["electricityFee"]??'100'}/- PKR', textColor: Colors.white,),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(text: 'Room charges:', fontWeight: FontWeight.w500),
-                            AppText(text: '${challanData?["roomCharges"]??'5000'}/- PKR'),
+                            const AppText(text: 'Water charges:', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${challanData?["waterCharges"]??'200'}/- PKR', textColor: Colors.white,),
                           ],
                         ),
-                        Divider(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const AppText(text: 'Room charges:', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${challanData?["roomCharges"]??'5000'}/- PKR', textColor: Colors.white,),
+                          ],
+                        ),
+                        const Divider(
                           color: Colors.grey,
                           thickness: 2,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppText(text: 'Month Fee:', fontWeight: FontWeight.w500),
-                            AppText(text: '${challanData?["amount"]??'14000'}/- PKR'),
+                            const AppText(text: 'Month Fee:', fontWeight: FontWeight.w500, textColor: Colors.white,),
+                            AppText(text: '${challanData?["amount"]??'14000'}/- PKR', textColor: Colors.white,),
                           ],
                         ),
                       ],
@@ -231,7 +236,7 @@ class _HostelFeeState extends State<HostelFee> {
       pw.Page(
         build: (pw.Context context) {
           return pw.Container(
-            padding: pw.EdgeInsets.all(20),
+            padding: const pw.EdgeInsets.all(20),
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
@@ -246,8 +251,8 @@ class _HostelFeeState extends State<HostelFee> {
                 pw.Text('Hostel Details', style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold)),
                 pw.SizedBox(height: 10),
                 pw.Container(
-                  decoration: pw.BoxDecoration(),
-                  padding: pw.EdgeInsets.all(10),
+                  decoration: const pw.BoxDecoration(),
+                  padding: const pw.EdgeInsets.all(10),
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -275,9 +280,9 @@ class _HostelFeeState extends State<HostelFee> {
                 pw.SizedBox(height: 10),
                 pw.Container(
                   decoration: pw.BoxDecoration(
-                    border: pw.Border.all(color: PdfColor.fromInt(0xff487557), width: 1),
+                    border: pw.Border.all(color: const PdfColor.fromInt(0xff487557), width: 1),
                   ),
-                  padding: pw.EdgeInsets.all(10),
+                  padding: const pw.EdgeInsets.all(10),
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -338,7 +343,7 @@ class _HostelFeeState extends State<HostelFee> {
                       '3. The additional amount collected after the due date will be used for need\n'
                       '   based scholarship purposes.\n'
                       '4. Semester fee includes tuition fee and other charges.',
-                  style: pw.TextStyle(fontSize: 12),
+                  style: const pw.TextStyle(fontSize: 12),
                 ),
                 pw.SizedBox(height: 40),
                 if (isPaid)

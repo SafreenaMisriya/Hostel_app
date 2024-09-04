@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../../User/Model/create_issue_model.dart';
 
@@ -45,47 +46,47 @@ class _AdminIssuesHistoryState extends State<AdminIssuesHistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Issues History',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: Colors.black,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : resolvedIssuesList.isNotEmpty || rejectedIssuesList.isNotEmpty
           ? Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: ListView(
           children: [
             if (resolvedIssuesList.isNotEmpty) ...[
-              AppText(
+              const AppText(
                 textAlign: TextAlign.center,
                 text: 'Resolved Issues',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
-              SizedBox(height: 10,),
-              ...resolvedIssuesList.map((issue) => buildIssueItem(issue)).toList(),
+              const SizedBox(height: 10,),
+              ...resolvedIssuesList.map((issue) => buildIssueItem(issue)),
             ],
             if (rejectedIssuesList.isNotEmpty) ...[
-              AppText(
+              const AppText(
                 textAlign: TextAlign.center,
                 text: 'Rejected Issues',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
-              SizedBox(height: 10,),
-              ...rejectedIssuesList.map((issue) => buildIssueItem(issue)).toList(),
+              const SizedBox(height: 10,),
+              ...rejectedIssuesList.map((issue) => buildIssueItem(issue)),
             ],
           ],
         ),
       )
-          : Center(
+          : const Center(
         child: AppText(
           text: 'No Data Found',
           fontWeight: FontWeight.bold,
@@ -97,12 +98,12 @@ class _AdminIssuesHistoryState extends State<AdminIssuesHistory> {
 
   Widget buildIssueItem(IssueModel issue) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.green.shade50,
+        color: AppColors.blue1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +111,7 @@ class _AdminIssuesHistoryState extends State<AdminIssuesHistory> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppText(
+              const AppText(
                 text: 'Username:',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -124,7 +125,7 @@ class _AdminIssuesHistoryState extends State<AdminIssuesHistory> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppText(
+              const AppText(
                 text: 'Room Number: ',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -138,7 +139,7 @@ class _AdminIssuesHistoryState extends State<AdminIssuesHistory> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppText(
+              const AppText(
                 text: 'Email Id: ',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -152,7 +153,7 @@ class _AdminIssuesHistoryState extends State<AdminIssuesHistory> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppText(
+              const AppText(
                 text: 'Phone No:',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -166,7 +167,7 @@ class _AdminIssuesHistoryState extends State<AdminIssuesHistory> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppText(
+              const AppText(
                 text: 'Issue: ',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -177,7 +178,7 @@ class _AdminIssuesHistoryState extends State<AdminIssuesHistory> {
               ),
             ],
           ),
-          AppText(
+          const AppText(
             text: 'Student Comment: ',
             fontSize: 14,
             fontWeight: FontWeight.w600,

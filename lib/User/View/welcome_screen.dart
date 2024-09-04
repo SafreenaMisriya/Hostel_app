@@ -4,6 +4,7 @@ import 'package:hostel_app/Res/Widgets/app_text.dart';
 import 'package:hostel_app/Res/Widgets/custom_botton.dart';
 
 import '../../Admin/View/admin_login_screen.dart';
+import '../../Res/AppColors/appColors.dart';
 import 'login_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -23,26 +24,47 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const AppText(text: 'Login as a',fontWeight: FontWeight.w600,fontSize: 30,),
-              SizedBox(height: 20,),
+              const AppText(
+                text: 'WELCOME',
+                fontWeight: FontWeight.w600,
+                fontSize: 30,
+                textColor: AppColors.blue2,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Image.asset('assets/welcome.png'),
+              const SizedBox(
+                height: 30,
+              ),
+              const AppText(
+                text: 'Login as a',
+                fontWeight: FontWeight.w600,
+                fontSize: 30,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               CustomBotton(
                 onTap: () {
                   Get.to(
-                        ()=>AdminLoginScreen(),
+                    () => const AdminLoginScreen(),
                   );
                 },
                 label: 'Admin Login',
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.blue3,
               ),
-              SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               CustomBotton(
                 onTap: () {
                   Get.to(
-                    ()=>LoginScreen(),
+                    () => const LoginScreen(),
                   );
                 },
                 label: 'User Login',
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.blue3,
               ),
             ],
           ),

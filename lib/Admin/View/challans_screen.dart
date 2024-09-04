@@ -7,21 +7,21 @@ class ChallansScreen extends StatelessWidget {
   final bool isPaid;
 
   const ChallansScreen({
-    Key? key,
+    super.key,
     required this.challan,
     required this.isPaid,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.green,
         title: Text(
           isPaid ? 'Paid Challans' : 'Unpaid Challans',
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: challan.isNotEmpty
@@ -30,8 +30,8 @@ class ChallansScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final challans = challan[index].data() as Map<String, dynamic>;
                 return Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: isPaid ? Colors.green.shade100:Colors.red.shade100,
@@ -41,20 +41,20 @@ class ChallansScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Challan No: '),
+                          const Text('Challan No: '),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.teal
                               ),
-                              child: Text('${challans['challanNumber']}',style: TextStyle(color: Colors.white,fontSize: 12),)),
+                              child: Text('${challans['challanNumber']}',style: const TextStyle(color: Colors.white,fontSize: 12),)),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('UserName: '),
+                          const Text('UserName: '),
                           Text('${challans['studentName']}'),
 
                         ],
@@ -62,83 +62,83 @@ class ChallansScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Issue date:'),
-                        Text('${DateFormat('dd-MM-yyyy').format(challans['issueDate'].toDate().toLocal())}'),
+                          const Text('Issue date:'),
+                        Text(DateFormat('dd-MM-yyyy').format(challans['issueDate'].toDate().toLocal())),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Due date: '),
-                          Text('${DateFormat('dd-MM-yyyy').format(challans['dueDate'].toDate().toLocal())}'),
+                          const Text('Due date: '),
+                          Text(DateFormat('dd-MM-yyyy').format(challans['dueDate'].toDate().toLocal())),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('MessFee: '),
+                          const Text('MessFee: '),
                           Text('${challans['messFee']}'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('ParkingCharges: '),
+                          const Text('ParkingCharges: '),
                           Text('${challans['parkingCharges']}'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('ElectricityFee: '),
+                          const Text('ElectricityFee: '),
                           Text('${challans['electricityFee']}'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('WaterCharges: '),
+                          const Text('WaterCharges: '),
                           Text('${challans['waterCharges']}'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('RoomCharges: '),
+                          const Text('RoomCharges: '),
                           Text('${challans['roomCharges']}'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Before DueDate:'),
+                          const Text('Before DueDate:'),
                           Text('${challans['beforeDueDate']}'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('After DueDate:'),
+                          const Text('After DueDate:'),
                           Text('${challans['afterDueDate']}'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Status: '),
-                          Container( padding: EdgeInsets.symmetric(horizontal: 6,vertical: 3),
+                          const Text('Status: '),
+                          Container( padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 3),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color:isPaid ? Colors.green: Colors.orange
                               ),
-                              child: Text('${challans['status']}',style: TextStyle(color: Colors.white,fontSize: 10),)),
+                              child: Text('${challans['status']}',style: const TextStyle(color: Colors.white,fontSize: 10),)),
                         ],
                       ),
                     ],
                   ),
                 );
               })
-          : Center(child: Text('No record found')),
+          : const Center(child: Text('No record found')),
     );
   }
 }

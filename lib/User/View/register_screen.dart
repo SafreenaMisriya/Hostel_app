@@ -8,11 +8,12 @@ import 'package:hostel_app/Res/Widgets/CustomTextformField.dart';
 import 'package:hostel_app/Res/Widgets/app_text.dart';
 import 'package:hostel_app/Res/Widgets/custom_botton.dart';
 import 'package:hostel_app/User/Controller/register_controller.dart';
+import '../../Res/AppColors/appColors.dart';
 import 'login_screen.dart';
 import 'dart:io';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -79,17 +80,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Center(
+                    const SizedBox(height: 10),
+                    const Center(
                       child: AppText(
                         text: 'Register your account',
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
+                        textColor: AppColors.blue3,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    AppText(text: 'First Name', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 20),
+                    const AppText(text: 'First Name', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       hintText: 'Enter your First Name',
                       controller: controller.firstNameController,
@@ -100,9 +102,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Last Name', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Last Name', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       hintText: 'Enter your Last Name',
                       controller: controller.lastNameController,
@@ -113,9 +115,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Email', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Email', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       hintText: 'Enter your Email',
                       controller: controller.emailController,
@@ -133,9 +135,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Password', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Password', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       hintText: 'Enter your Password',
                       controller: controller.passwordController,
@@ -149,9 +151,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Phone Number', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Phone Number', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       controller: controller.phoneNumberController,
                       keyboardType: TextInputType.number,
@@ -167,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    AppText(text: 'CNIC No', fontSize: 16),
+                    const AppText(text: 'CNIC No', fontSize: 16),
                     const SizedBox(
                       height: 10,
                     ),
@@ -187,7 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                       hintText: 'Enter Your CNIC N0',
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -269,14 +271,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               _errorUploadCNIC!,
-                              style: TextStyle(color: Colors.red),
+                              style: const TextStyle(color: Colors.red),
                             ),
                           ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Roll No', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Roll No', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       keyboardType: TextInputType.number,
                       hintText: 'Enter your Roll Number',
@@ -288,35 +290,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AppText(text: 'Block', fontSize: 16),
-                              SizedBox(
+                              const AppText(text: 'Block', fontSize: 16),
+                              const SizedBox(
                                 height: 10,
                               ),
                               DropdownButtonFormField<String>(
-                                iconEnabledColor: Colors.green,
+                                iconEnabledColor:  AppColors.blue3,
                                 value: controller.selectedBlock,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
+                                    borderSide: const BorderSide(color: AppColors.blue3),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
+                                    borderSide: const BorderSide(color: AppColors.blue3),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
+                                    borderSide: const BorderSide(color: AppColors.blue3),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                                hint: Text('Select Block'),
+                                hint: const Text('Select Block'),
                                 onChanged: (value) {
                                   setState(() {
                                     controller.selectedBlock = value;
@@ -338,33 +340,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AppText(text: 'Room', fontSize: 16),
-                              SizedBox(
+                              const AppText(text: 'Room', fontSize: 16),
+                              const SizedBox(
                                 height: 10,
                               ),
                               DropdownButtonFormField<String>(
-                                iconEnabledColor: Colors.green,
+                                iconEnabledColor: AppColors.blue3,
                                 value: controller.selectedRoomNo,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
+                                    borderSide: const BorderSide(color:AppColors.blue3),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
+                                    borderSide: const BorderSide(color: AppColors.blue3),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
+                                    borderSide: const BorderSide(color: AppColors.blue3),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                                hint: Text('Select Room'),
+                                hint: const Text('Select Room'),
                                 onChanged: (value) {
                                   setState(() {
                                     controller.selectedRoomNo = value;
@@ -388,7 +390,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Obx(() {
                       return CustomBotton(
                         onTap: controller.isLoading.value
@@ -399,48 +401,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             : 'Register',
                         backgroundColor: controller.isLoading.value
                             ? Colors.grey
-                            : Colors.green,
+                            : AppColors.blue3,
                       );
                     }),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Obx(() {
                       if (controller.errorMessage.isNotEmpty) {
                         return Center(
                           child: Text(
                             controller.errorMessage.value,
-                            style: TextStyle(color: Colors.red),
+                            style: const TextStyle(color: Colors.red),
                           ),
                         );
                       } else {
-                        return SizedBox
+                        return const SizedBox
                             .shrink(); // Hide the error message if it's empty
                       }
                     }),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: RichText(
                         text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15.0,
                             color: Colors.black,
                           ),
                           children: [
-                            TextSpan(
+                            const TextSpan(
                               text: "Already have an account?",
                             ),
                             TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Get.to(() => LoginScreen());
+                                  Get.to(() => const LoginScreen());
                                 },
                               text: ' Login',
-                              style: TextStyle(color: Colors.green),
+                              style: const TextStyle(color: AppColors.blue3),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

@@ -22,6 +22,9 @@ class AppColors{
   static const Color checkColor= Color(0xFF363853);
   static const Color falseColor= Color(0xFFBCBCBC);
   static const Color light= Color(0xFF939393);
+  static const Color blue1 = Color(0xFF99BCC4);
+  static const Color blue2 = Color(0xFF08535D);
+  static const Color blue3 = Color(0xFF02333C);
 
 
 

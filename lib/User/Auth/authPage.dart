@@ -7,7 +7,7 @@ import '../View/welcome_screen.dart';
 
 
 class AuthPage extends StatelessWidget {
-  AuthPage({super.key});
+  const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class AuthPage extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            return HomeScreen();
+            return const HomeScreen();
           } else {
-            return WelcomeScreen();
+            return const WelcomeScreen();
           }
         },
       ),

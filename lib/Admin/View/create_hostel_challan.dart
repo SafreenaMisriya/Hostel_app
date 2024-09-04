@@ -4,13 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/InternetConnectivityError.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../../Res/Widgets/custom_botton.dart'; // Assuming this is imported correctly
 import '../../User/Model/create_challan.dart';
 
 class CreateHostelChallan extends StatefulWidget {
-  const CreateHostelChallan({Key? key}) : super(key: key);
+  const CreateHostelChallan({super.key});
 
   @override
   State<CreateHostelChallan> createState() => _CreateHostelChallanState();
@@ -18,12 +19,18 @@ class CreateHostelChallan extends StatefulWidget {
 
 class _CreateHostelChallanState extends State<CreateHostelChallan> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _challanNumberController = TextEditingController();
-  final TextEditingController _messFeeController = TextEditingController(text: '5000');
-  final TextEditingController _parkingChargesController = TextEditingController(text: '100');
-  final TextEditingController _electricityFeeController = TextEditingController(text: '100');
-  final TextEditingController _waterChargesController = TextEditingController(text: '100');
-  final TextEditingController _roomChargesController = TextEditingController(text: '5000');
+  final TextEditingController _challanNumberController =
+      TextEditingController();
+  final TextEditingController _messFeeController =
+      TextEditingController(text: '5000');
+  final TextEditingController _parkingChargesController =
+      TextEditingController(text: '100');
+  final TextEditingController _electricityFeeController =
+      TextEditingController(text: '100');
+  final TextEditingController _waterChargesController =
+      TextEditingController(text: '100');
+  final TextEditingController _roomChargesController =
+      TextEditingController(text: '5000');
   String? selectedBlock;
   String? selectedRoom;
   String? currentUserId;
@@ -42,51 +49,81 @@ class _CreateHostelChallanState extends State<CreateHostelChallan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Create Challan',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: Colors.black,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
-      body: isLoading ? InternetConnectivityError() : Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              _buildTextField(_challanNumberController, 'Challan Number', isNumeric: true, isEditable: false),
-              _buildBlockDropdown('Block No', selectedBlock, _onBlockSelected),
-              _buildRoomDropdown('Room No', selectedRoom, _onRoomSelected),
-              _buildDropdownField('Student Name', studentNames, selectedStudentName, _onStudentNameSelected),
-              _buildTextField(_messFeeController, 'Mess Fee', isNumeric: true, isEditable: true),
-              _buildTextField(_parkingChargesController, 'Parking Charges', isNumeric: true, isEditable: true),
-              _buildTextField(_electricityFeeController, 'Electricity Fee', isNumeric: true, isEditable: true),
-              _buildTextField(_waterChargesController, 'Water Charges', isNumeric: true, isEditable: true),
-              _buildTextField(_roomChargesController, 'Room Charges', isNumeric: true, isEditable: true),
-              SizedBox(height: 20),
-              CustomBotton(
-                onTap: _createChallan,
-                label: 'Create Challan',
+      body: isLoading
+          ? const InternetConnectivityError()
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    _buildTextField(_challanNumberController, 'Challan Number',
+                        isNumeric: true, isEditable: false),
+                    _buildBlockDropdown(
+                        'Block No', selectedBlock, _onBlockSelected),
+                    _buildRoomDropdown(
+                        'Room No', selectedRoom, _onRoomSelected),
+                    _buildDropdownField('Student Name', studentNames,
+                        selectedStudentName, _onStudentNameSelected),
+                    _buildTextField(_messFeeController, 'Mess Fee',
+                        isNumeric: true, isEditable: true),
+                    _buildTextField(
+                        _parkingChargesController, 'Parking Charges',
+                        isNumeric: true, isEditable: true),
+                    _buildTextField(
+                        _electricityFeeController, 'Electricity Fee',
+                        isNumeric: true, isEditable: true),
+                    _buildTextField(_waterChargesController, 'Water Charges',
+                        isNumeric: true, isEditable: true),
+                    _buildTextField(_roomChargesController, 'Room Charges',
+                        isNumeric: true, isEditable: true),
+                    const SizedBox(height: 20),
+                    CustomBotton(
+                      onTap: _createChallan,
+                      label: 'Create Challan',
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String labelText, {bool isNumeric = false, bool isEditable = true}) {
+  Widget _buildTextField(TextEditingController controller, String labelText,
+      {bool isNumeric = false, bool isEditable = true}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextFormField(
         controller: controller,
+        cursorColor: AppColors.blue3,
+       autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: AppColors.blue3),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(width: 1.5, color: AppColors.blue3),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.red),
+          ),
           labelText: labelText,
+          labelStyle: const TextStyle(color: Colors.grey,fontSize: 14,fontWeight: FontWeight.w400),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -103,7 +140,8 @@ class _CreateHostelChallanState extends State<CreateHostelChallan> {
     );
   }
 
-  Widget _buildDropdownField(String labelText, List<String> items, String? value, ValueChanged<String?> onChanged) {
+  Widget _buildDropdownField(String labelText, List<String> items,
+      String? value, ValueChanged<String?> onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: DropdownButtonFormField<String>(
@@ -113,7 +151,7 @@ class _CreateHostelChallanState extends State<CreateHostelChallan> {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        value: value,
+        value: items.isNotEmpty ? value : null,
         onChanged: onChanged,
         items: items.map((String studentName) {
           return DropdownMenuItem<String>(
@@ -131,7 +169,8 @@ class _CreateHostelChallanState extends State<CreateHostelChallan> {
     );
   }
 
-  Widget _buildBlockDropdown(String labelText, String? value, ValueChanged<String?> onChanged) {
+  Widget _buildBlockDropdown(
+      String labelText, String? value, ValueChanged<String?> onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: DropdownButtonFormField<String>(
@@ -154,7 +193,8 @@ class _CreateHostelChallanState extends State<CreateHostelChallan> {
     );
   }
 
-  Widget _buildRoomDropdown(String labelText, String? value, ValueChanged<String?> onChanged) {
+  Widget _buildRoomDropdown(
+      String labelText, String? value, ValueChanged<String?> onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: DropdownButtonFormField<String>(
@@ -220,9 +260,9 @@ class _CreateHostelChallanState extends State<CreateHostelChallan> {
           .get()
           .then((querySnapshot) {
         List<String> names = [];
-        querySnapshot.docs.forEach((doc) {
+        for (var doc in querySnapshot.docs) {
           names.add(doc['firstName']);
-        });
+        }
         setState(() {
           studentNames = names;
           selectedStudentName = null; // Reset selected student name
@@ -246,18 +286,24 @@ class _CreateHostelChallanState extends State<CreateHostelChallan> {
   void _generateChallanNumber() {
     // Generate a random 6-digit number
     var random = Random();
-    int randomNumber = random.nextInt(900000) + 100000; // Generates number between 100000 and 999999
+    int randomNumber = random.nextInt(900000) +
+        100000; // Generates number between 100000 and 999999
     _challanNumberController.text = randomNumber.toString();
   }
 
-
   double _calculateTotalAmount() {
     double messFee = double.tryParse(_messFeeController.text) ?? 0.0;
-    double parkingCharges = double.tryParse(_parkingChargesController.text) ?? 0.0;
-    double electricityFee = double.tryParse(_electricityFeeController.text) ?? 0.0;
+    double parkingCharges =
+        double.tryParse(_parkingChargesController.text) ?? 0.0;
+    double electricityFee =
+        double.tryParse(_electricityFeeController.text) ?? 0.0;
     double waterCharges = double.tryParse(_waterChargesController.text) ?? 0.0;
     double roomCharges = double.tryParse(_roomChargesController.text) ?? 0.0;
-    return messFee + parkingCharges + electricityFee + waterCharges + roomCharges;
+    return messFee +
+        parkingCharges +
+        electricityFee +
+        waterCharges +
+        roomCharges;
   }
 
   void _onStudentNameSelected(String? value) {
@@ -289,13 +335,16 @@ class _CreateHostelChallanState extends State<CreateHostelChallan> {
         waterCharges: double.parse(_waterChargesController.text),
         roomCharges: double.parse(_roomChargesController.text),
         issueDate: Timestamp.now(),
-        dueDate: Timestamp.fromDate(DateTime.now().add(Duration(days: 5))),
+        dueDate: Timestamp.fromDate(DateTime.now().add(const Duration(days: 5))),
       );
 
-      await FirebaseFirestore.instance.collection('challan').add(challan.toMap()).then((value) {
+      await FirebaseFirestore.instance
+          .collection('challan')
+          .add(challan.toMap())
+          .then((value) {
         Get.back();
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Challan created successfully')),
+          const SnackBar(content: Text('Challan created successfully')),
         );
       }).catchError((error) {
         print("Failed to add challan: $error");

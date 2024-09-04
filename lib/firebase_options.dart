@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -33,10 +30,7 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -49,20 +43,38 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDg22m36Ju5gd_km2eUMallnhfRvjzTdBU',
+    appId: '1:76851505485:web:bbecbd899b5c45f8152f04',
+    messagingSenderId: '76851505485',
+    projectId: 'hostel-app-25b14',
+    authDomain: 'hostel-app-25b14.firebaseapp.com',
+    storageBucket: 'hostel-app-25b14.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAnCINAvphpitKMtDkMGHHZ_jxFaaSxWrU',
-    appId: '1:68634854631:android:ea4bb780a13f93606ace42',
-    messagingSenderId: '68634854631',
-    projectId: 'hostel-management-app-d0d0f',
-    storageBucket: 'hostel-management-app-d0d0f.appspot.com',
+    apiKey: 'AIzaSyDuXZ1SPQ-SAMKxxM2B6nV9ZnZ21dE5N24',
+    appId: '1:76851505485:android:7b0da83656008e3b152f04',
+    messagingSenderId: '76851505485',
+    projectId: 'hostel-app-25b14',
+    storageBucket: 'hostel-app-25b14.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCyvceLt_TRg0tl3DUHc_j0UdVjgJFfiUM',
-    appId: '1:68634854631:ios:284dbb9876a64ffa6ace42',
-    messagingSenderId: '68634854631',
-    projectId: 'hostel-management-app-d0d0f',
-    storageBucket: 'hostel-management-app-d0d0f.appspot.com',
+    apiKey: 'AIzaSyBcZttkX0SRNYJ84tZroeDrEHnzGphuF7M',
+    appId: '1:76851505485:ios:bd3abf0ac9f89762152f04',
+    messagingSenderId: '76851505485',
+    projectId: 'hostel-app-25b14',
+    storageBucket: 'hostel-app-25b14.appspot.com',
     iosBundleId: 'com.example.hostelApp',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDg22m36Ju5gd_km2eUMallnhfRvjzTdBU',
+    appId: '1:76851505485:web:c46c06ffdf8a499f152f04',
+    messagingSenderId: '76851505485',
+    projectId: 'hostel-app-25b14',
+    authDomain: 'hostel-app-25b14.firebaseapp.com',
+    storageBucket: 'hostel-app-25b14.appspot.com',
   );
 }

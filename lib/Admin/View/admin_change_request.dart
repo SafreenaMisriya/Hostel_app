@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hostel_app/Res/Widgets/InternetConnectivityError.dart';
+import '../../Res/AppColors/appColors.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../../Res/Widgets/custom_botton.dart';
 import '../../User/Model/room_change_request_model.dart';
@@ -59,21 +60,22 @@ class _AdminChangeRequestState extends State<AdminChangeRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Room Change Requests',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: Colors.black,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: isLoading
-          ? InternetConnectivityError()
+          ? const InternetConnectivityError()
           : roomChangeRequests.isEmpty
-          ? Center(
+          ? const Center(
         child: AppText(
           text: 'No room change requests found',
           fontWeight: FontWeight.bold,
@@ -85,70 +87,75 @@ class _AdminChangeRequestState extends State<AdminChangeRequest> {
         itemBuilder: (context, index) {
           RoomChangeRequestModel request = roomChangeRequests[index];
           return Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            padding: EdgeInsets.all(20),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
+               gradient: const LinearGradient(
+            colors: [AppColors.blue1, AppColors.blue3],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
               borderRadius: BorderRadius.circular(10),
-              color: Colors.green.shade50,
+             
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    AppText(text: 'Requested By: ', fontWeight: FontWeight.w600),
+                    const AppText(text: 'Requested By: ', fontWeight: FontWeight.w600),
                     AppText(text: ' ${request.firstName} '),
                   ],
                 ),
                 Row(
                   children: [
-                    AppText(text: 'Current Block: ', fontWeight: FontWeight.w600),
-                    AppText(text: '${request.currentBlock}'),
+                    const AppText(text: 'Current Block: ', fontWeight: FontWeight.w600),
+                    AppText(text: request.currentBlock),
                   ],
                 ),
                 Row(
                   children: [
-                    AppText(text: 'Current Room No: ', fontWeight: FontWeight.w600),
-                    AppText(text: '${request.currentRoomNo}'),
+                    const AppText(text: 'Current Room No: ', fontWeight: FontWeight.w600),
+                    AppText(text: request.currentRoomNo),
                   ],
                 ),
                 Row(
                   children: [
-                    AppText(text: 'New Block: ', fontWeight: FontWeight.w600),
-                    AppText(text: '${request.newBlock}'),
+                    const AppText(text: 'New Block: ', fontWeight: FontWeight.w600),
+                    AppText(text: request.newBlock),
                   ],
                 ),
                 Row(
                   children: [
-                    AppText(text: 'New Room No:', fontWeight: FontWeight.w600),
+                    const AppText(text: 'New Room No:', fontWeight: FontWeight.w600),
                     AppText(text: ' ${request.newRoomNo}'),
                   ],
                 ),
 
-                AppText(text: 'Reason: ',fontWeight: FontWeight.w600,),
-                AppText(text: '${request.reason}',),
+                const AppText(text: 'Reason: ',fontWeight: FontWeight.w600,),
+                AppText(text: request.reason,),
 
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomBotton(
-                      height: 30,
-                      width: 130,
+                      height: 40,
+                      width: 150,
                       label: 'Reject',
                       backgroundColor: Colors.red,
                       onTap: () {
-                        rejectRequest(request.requestId!);
+                        rejectRequest(request.requestId);
                       },
                     ),
                     CustomBotton(
-                      height: 30,
-                      width: 130,
+                      height: 40,
+                      width: 150,
                       label: 'Approve',
                       backgroundColor: Colors.green,
                       onTap: () {
                         approveRequest(
-                          request.requestId!,
+                          request.requestId,
                           request.uid,
                           request.newBlock,
                           request.newRoomNo,

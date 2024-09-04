@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'Admin/Auth/admin_auth_page.dart';
 import 'Admin/View/admin_home_screen.dart';
 import 'Res/routes/routes.dart';
 import 'User/Auth/authPage.dart';
@@ -20,7 +19,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +34,10 @@ class MyApp extends StatelessWidget {
           }
           if (snapshot.hasData) {
             // User is authenticated
-            return AuthDecisionScreen();
+            return const AuthDecisionScreen();
           } else {
             // User is not authenticated
-            return AuthPage();
+            return const AuthPage();
           }
         },
       ),
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
 }
 
 class AuthDecisionScreen extends StatefulWidget {
-  const AuthDecisionScreen({Key? key}) : super(key: key);
+  const AuthDecisionScreen({super.key});
 
   @override
   _AuthDecisionScreenState createState() => _AuthDecisionScreenState();
@@ -83,12 +82,12 @@ class _AuthDecisionScreenState extends State<AuthDecisionScreen> {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError || !snapshot.hasData || snapshot.data == null) {
-          return WelcomeScreen();
+          return const WelcomeScreen();
         }
         if (snapshot.data == true) {
-          return AdminHomeScreen();
+          return const AdminHomeScreen();
         } else {
-          return HomeScreen();
+          return const HomeScreen();
         }
       },
     );
@@ -96,7 +95,7 @@ class _AuthDecisionScreenState extends State<AuthDecisionScreen> {
 }
 
 class AdminAuthPage extends StatelessWidget {
-  AdminAuthPage({Key? key}) : super(key: key);
+  const AdminAuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -110,9 +109,9 @@ class AdminAuthPage extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            return AdminHomeScreen();
+            return const AdminHomeScreen();
           } else {
-            return WelcomeScreen();
+            return const WelcomeScreen();
           }
         },
       ),

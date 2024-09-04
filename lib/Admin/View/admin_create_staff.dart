@@ -8,7 +8,7 @@ import '../../Res/Widgets/custom_botton.dart';
 import '../Model/staff_model.dart';
 
 class AdminCreateStaff extends StatefulWidget {
-  const AdminCreateStaff({Key? key}) : super(key: key);
+  const AdminCreateStaff({super.key});
 
   @override
   State<AdminCreateStaff> createState() => _AdminCreateStaffState();
@@ -35,9 +35,9 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Create Staff',
           fontWeight: FontWeight.w600,
           fontSize: 20,
@@ -45,7 +45,7 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
         ),
         backgroundColor: Colors.green,
       ),
-      body: isLoading? InternetConnectivityError():SafeArea(
+      body: isLoading? const InternetConnectivityError():SafeArea(
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
@@ -56,8 +56,8 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(text: 'First Name', fontSize: 16),
-                    SizedBox(height: 10),
+                    const AppText(text: 'First Name', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       controller: firstNameController,
                       hintText: 'Enter your First Name',
@@ -68,9 +68,9 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                         return null; // Return null if the input is valid
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Last Name', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Last Name', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       controller: lastNameController,
                       hintText: 'Enter your Last Name',
@@ -81,9 +81,9 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                         return null; // Return null if the input is valid
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Job Role', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Job Role', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       controller: jobRoleController,
                       hintText: 'Enter your Job Role',
@@ -94,9 +94,9 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Email', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Email', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       controller: emailController,
                       hintText: 'Enter your Email',
@@ -110,9 +110,9 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Phone Number', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Phone Number', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       keyboardType: TextInputType.number,
                       controller: phoneNumberController,
@@ -127,7 +127,7 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     CustomBotton(
                       onTap: () async {
                         if (_createStaffFormKey.currentState!.validate()) {
@@ -148,7 +148,7 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                               staffData.toMap(),
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Staff created successfully')),
+                              const SnackBar(content: Text('Staff created successfully')),
                             );
                             firstNameController.clear();
                             lastNameController.clear();
@@ -169,7 +169,7 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                       label: 'Create Staff',
                       backgroundColor: Colors.green,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

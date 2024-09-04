@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hostel_app/Res/AppColors/appColors.dart';
 import 'package:hostel_app/User/Controller/login_controller.dart';
 import 'package:hostel_app/User/View/register_screen.dart';
 import 'package:hostel_app/User/View/welcome_screen.dart';
@@ -49,9 +50,9 @@ class _LoginScreenState extends State<LoginScreen> {
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () {
-              Get.to(() => WelcomeScreen());
+              Get.to(() => const WelcomeScreen());
             },
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
           backgroundColor: Colors.white,
         ),
@@ -71,17 +72,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Image.asset('assets/logo.jpg', width: 200, height: 200),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Center(
+                    const SizedBox(height: 10),
+                    const Center(
                       child: AppText(
                         text: 'Login your account',
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    AppText(text: 'Email', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 20),
+                    const AppText(text: 'Email', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       hintText: 'Enter your Email',
                       controller: controller.emailController,
@@ -95,9 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Password', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Password', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       hintText: 'Enter your Password',
                       controller: controller.passwordController,
@@ -111,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Align(
                         alignment: Alignment.bottomRight,
                         child: Padding(
@@ -132,46 +133,46 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         )),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Obx(() {
                       return CustomBotton(
                         onTap: controller.isLoading.value ? null : controller.login,
                         label: controller.isLoading.value ? 'Loading...' : 'Login',
-                        backgroundColor: controller.isLoading.value ? Colors.grey : Colors.green,
+                        backgroundColor: controller.isLoading.value ? Colors.grey : AppColors.blue3,
                       );
                     }),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: RichText(
                         text: TextSpan(
-                          style: TextStyle(fontSize: 15.0, color: Colors.black),
+                          style: const TextStyle(fontSize: 15.0, color: Colors.black),
                           children: [
-                            TextSpan(
+                            const TextSpan(
                               text: "Didn't have an account?",
                             ),
                             TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Get.to(() => RegisterScreen());
+                                  Get.to(() => const RegisterScreen());
                                 },
                               text: ' Register',
-                              style: TextStyle(color: Colors.green),
+                              style: const TextStyle(color: Colors.green),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Center(
                       child: TextButton(
                         onPressed: resendVerificationEmail,
-                        child: Text(
+                        child: const Text(
                           'Resend Verification Email',
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: AppColors.blue3),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

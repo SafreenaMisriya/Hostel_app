@@ -30,7 +30,7 @@ class AdminLoginController extends GetxController {
 
         if (adminSnapshot.exists) {
           // Navigate to AdminHomeScreen and remove the login screen from the stack
-          Get.off(() => AdminHomeScreen());
+          Get.off(() => const AdminHomeScreen());
           emailController.clear();
           passwordController.clear();
         } else {

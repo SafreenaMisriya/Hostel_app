@@ -20,7 +20,7 @@ class _InternetConnectivityErrorState extends State<InternetConnectivityError> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(

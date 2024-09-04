@@ -14,9 +14,9 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Create Staff',
           fontWeight: FontWeight.w600,
           fontSize: 20,
@@ -24,7 +24,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
         ),
         backgroundColor: Colors.green,
       ),
-      body: Center(
+      body: const Center(
         child: AppText(text: "You don't have permission to view this page"),
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel_app/User/View/home_screen.dart';
 
 import '../../User/View/welcome_screen.dart';
 import '../View/admin_home_screen.dart';
@@ -8,7 +7,7 @@ import '../View/admin_home_screen.dart';
 
 
 class AdminAuthPage extends StatelessWidget {
-  AdminAuthPage({super.key});
+  const AdminAuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +21,9 @@ class AdminAuthPage extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            return AdminHomeScreen();
+            return const AdminHomeScreen();
           } else {
-            return WelcomeScreen();
+            return const WelcomeScreen();
           }
         },
       ),

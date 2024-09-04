@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../Auth/firestore.dart';
 import '../View/login_screen.dart';
 
@@ -21,7 +19,7 @@ class RegisterController extends GetxController {
   String? cnicSelectedPath;
   String? selectedBlock;
   String? selectedRoomNo;
-  String? _errorUploadCNIC;
+  String? errorUploadCNIC;
   String? _cnicFilePath;
   var isLoading = false.obs;
   var errorMessage = ''.obs;
@@ -30,10 +28,10 @@ class RegisterController extends GetxController {
     if (registerFormKey.currentState!.validate()) {
       bool hasError = false;
       if (_cnicFilePath == null) {
-              _errorUploadCNIC = 'Please upload the Original CNIC';
-              hasError = true; // Set hasError to true if there's an error
+              errorUploadCNIC = 'Please upload the Original CNIC';
+              hasError = true; 
             } else {
-              _errorUploadCNIC = null; // Clear the error message if there's no error
+              errorUploadCNIC = null; // Clear the error message if there's no error
             }
 
       isLoading(true);
@@ -92,7 +90,7 @@ class RegisterController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
           );
 
-          Get.offAll(() => LoginScreen());
+          Get.offAll(() => const LoginScreen());
         }
       } on FirebaseAuthException catch (e) {
         errorMessage.value = e.message ?? 'An error occurred';

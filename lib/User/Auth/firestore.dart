@@ -26,7 +26,7 @@ class FirestoreService {
       }
     } catch (e) {
       print('Error fetching user data: $e');
-      throw e; // Rethrow the error to handle it elsewhere if needed
+      rethrow; // Rethrow the error to handle it elsewhere if needed
     }
   }
 
@@ -65,7 +65,7 @@ class FirestoreService {
       });
     } catch (e) {
       print('Error adding user to Firestore: $e');
-      throw e; // Rethrow the error to handle it elsewhere if needed
+      rethrow; // Rethrow the error to handle it elsewhere if needed
     }
   }
 
@@ -83,7 +83,7 @@ class FirestoreService {
       return false;
     } catch (e) {
       print('Error checking room availability: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -106,7 +106,7 @@ class FirestoreService {
       }
     } catch (e) {
       print('Error decrementing room seats: $e');
-      throw e;
+      rethrow;
     }
   }
 }

@@ -15,7 +15,7 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   Future PasswordReset() async {
     try {
@@ -24,7 +24,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
+          return const AlertDialog(
             title: Text("Alert Dialog"),
             content: Text("password reset link send check your email"),
           );
@@ -36,7 +36,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Alert Dialog"),
+            title: const Text("Alert Dialog"),
             content: Text(e.message.toString()),
           );
         },
@@ -56,21 +56,21 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       appBar: AppBar(
         leading: GestureDetector(
             onTap: () {
-              Get.to(LoginScreen());
+              Get.to(const LoginScreen());
             },
-            child: Icon(Icons.arrow_back)),
+            child: const Icon(Icons.arrow_back)),
         centerTitle: true,
-        title: Text(" Reset Password"),
+        title: const Text(" Reset Password"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text("Enter your Email to reset your password"),
-            SizedBox(
+            const Text("Enter your Email to reset your password"),
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -79,17 +79,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.grey, width: 2.0),
                       borderRadius: BorderRadius.circular(10)),
                   errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 2.0),
+                      borderSide: const BorderSide(color: Colors.red, width: 2.0),
                       borderRadius: BorderRadius.circular(10)),
                   hintText: ' Your email',
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             CustomBotton(

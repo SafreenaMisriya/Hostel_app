@@ -5,11 +5,11 @@ import 'package:hostel_app/Res/Widgets/CustomTextformField.dart';
 import 'package:hostel_app/Res/Widgets/InternetConnectivityError.dart';
 import 'package:hostel_app/Res/Widgets/app_text.dart';
 import 'package:hostel_app/Res/Widgets/custom_botton.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import '../../Res/AppColors/appColors.dart';
 import '../Model/create_issue_model.dart';
 
 class CreateIssueScreen extends StatefulWidget {
-  const CreateIssueScreen({Key? key}) : super(key: key);
+  const CreateIssueScreen({super.key});
 
   @override
   State<CreateIssueScreen> createState() => _CreateIssueScreenState();
@@ -124,11 +124,11 @@ class _CreateIssueScreenState extends State<CreateIssueScreen> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Issue submitted successfully')),
+          const SnackBar(content: Text('Issue submitted successfully')),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please fill in all fields')),
+          const SnackBar(content: Text('Please fill in all fields')),
         );
         setState(() {
           isLoading = false; // Set loading state to false if fields are not filled
@@ -142,19 +142,19 @@ class _CreateIssueScreenState extends State<CreateIssueScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Create issues Screen',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: SafeArea(
         child: isLoading
-            ?InternetConnectivityError()
+            ?const InternetConnectivityError()
             : Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
@@ -163,73 +163,73 @@ class _CreateIssueScreenState extends State<CreateIssueScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText(text: 'First Name', fontWeight: FontWeight.w600,fontSize: 16,),
-                  SizedBox(height: 10),
+                  const AppText(text: 'First Name', fontWeight: FontWeight.w600,fontSize: 16,),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     controller: firstNameController,
                     hintText: 'Enter your First Name',
                   ),
-                  SizedBox(height: 10),
-                  AppText(text: 'Last Name',fontWeight: FontWeight.w600,fontSize: 16,),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  const AppText(text: 'Last Name',fontWeight: FontWeight.w600,fontSize: 16,),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     controller: lastNameController,
                     hintText: 'Enter your Last Name',
                   ),
-                  SizedBox(height: 10),
-                  AppText(text: 'Room Number',fontWeight: FontWeight.w600,fontSize: 16,),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  const AppText(text: 'Room Number',fontWeight: FontWeight.w600,fontSize: 16,),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     keyboardType: TextInputType.number,
                     controller: roomController,
                     hintText: '1',
                   ),
-                  SizedBox(height: 10),
-                  AppText(text: 'Block',fontWeight: FontWeight.w600,fontSize: 16,),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  const AppText(text: 'Block',fontWeight: FontWeight.w600,fontSize: 16,),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     controller: blockController,
                     hintText: 'A',
                   ),
-                  SizedBox(height: 10),
-                  AppText(text: 'Email', fontWeight: FontWeight.w600,fontSize: 16,),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  const AppText(text: 'Email', fontWeight: FontWeight.w600,fontSize: 16,),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     controller: emailController,
                     hintText: 'Enter your Email',
                   ),
-                  SizedBox(height: 10),
-                  AppText(text: 'Phone Number', fontWeight: FontWeight.w600,fontSize: 16,),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  const AppText(text: 'Phone Number', fontWeight: FontWeight.w600,fontSize: 16,),
+                  const SizedBox(height: 10),
                   CustomTextFormField(
                     keyboardType: TextInputType.number,
                     controller: phoneController,
                     hintText: 'Enter your Phone Number',
                   ),
-                  SizedBox(height: 10),
-                  AppText(text: 'Issue', fontWeight: FontWeight.w600,fontSize: 16,),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  const AppText(text: 'Issue', fontWeight: FontWeight.w600,fontSize: 16,),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          iconEnabledColor: Colors.green,
+                          iconEnabledColor: AppColors.blue3,
                           value: issue,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green),
+                              borderSide: const BorderSide(color: AppColors.blue3),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green),
+                              borderSide: const BorderSide(color: AppColors.blue3),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.green),
+                              borderSide: const BorderSide(color: AppColors.blue3),
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          hint: Text('Select Reason'),
+                          hint: const Text('Select Reason'),
                           onChanged: (value) {
                             setState(() {
                               issue = value;
@@ -245,9 +245,9 @@ class _CreateIssueScreenState extends State<CreateIssueScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  AppText(text: 'Reason for change',fontWeight: FontWeight.w600,fontSize: 16,),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
+                  const AppText(text: 'Reason for change',fontWeight: FontWeight.w600,fontSize: 16,),
+                  const SizedBox(height: 20,),
                   CustomTextFormField(
                     height: 200,
                     maxLines: 5,
@@ -257,9 +257,9 @@ class _CreateIssueScreenState extends State<CreateIssueScreen> {
                   CustomBotton(
                     onTap: saveIssueData,
                     label: isLoading?'Submitting...':'Submit',
-                    backgroundColor: Colors.green,
+                    backgroundColor: AppColors.blue3,
                   ),
-                  SizedBox(height: 10,)
+                  const SizedBox(height: 10,)
                 ],
               ),
             ),

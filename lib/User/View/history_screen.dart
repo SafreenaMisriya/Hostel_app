@@ -8,9 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
-import 'package:intl/intl.dart';
+import '../../Res/AppColors/appColors.dart';
 class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({Key? key}) : super(key: key);
+  const HistoryScreen({super.key});
 
   @override
   State<HistoryScreen> createState() => _HistoryScreenState();
@@ -49,16 +49,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'History Screen',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: challansList.isNotEmpty ?
       Padding(
@@ -83,7 +84,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       ],
                     );
                   } else {
-                    return SizedBox(); // Skip rendering if the user's data doesn't match
+                    return const SizedBox(); // Skip rendering if the user's data doesn't match
                   }
                 },
               ),
@@ -91,63 +92,61 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ],
         ),
       )
-      :Center(child:Text('Histrory Not Found')),
+      :const Center(child:Text('Histrory Not Found')),
     );
   }
 
   Widget _buildHistoryCard(BuildContext context, {required String sr, required DocumentSnapshot challan}) {
-    bool isPaid = challan['status'] == 'Paid';
 
     return GestureDetector(
       onTap: () {
         _showChallanDetails(context, challan);
       },
-      child: Card(
-        elevation: 10,
-        surfaceTintColor: Colors.green.shade200,
-        shadowColor: Colors.green.shade200,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        margin: EdgeInsets.symmetric(vertical: 20),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20,right: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  _buildHeaderItem('SR'),
-                  _buildHeaderItem('Challan'),
-                  _buildHeaderItem('Amount'),
-                  _buildHeaderItem('Status'),
-                  _buildHeaderItem('Print'),
-                ],
-              ),
-              Divider(color: Colors.green.shade200, thickness: 1),
-              Row(
-                children: [
-                  _buildRowItem(sr),
-                  _buildRowItem(challan['challanNumber']),
-                  _buildRowItem(challan['beforeDueDate'].toString()),
-                  _buildStatusItem(challan['status']),
-                  IconButton(
-                    onPressed: () {
-                      _printForm(challan);
-                    },
-                    icon: Icon(Icons.print),
-                    tooltip: 'Print Challan',
-                  ),
-                ],
-              ),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: AppColors.blue3,
           ),
-        ),
+        child: 
+           Padding(
+            padding: const EdgeInsets.only(top: 20,right: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    _buildHeaderItem('SR'),
+                    _buildHeaderItem('Challan'),
+                    _buildHeaderItem('Amount'),
+                    _buildHeaderItem('Status'),
+                    _buildHeaderItem('Print'),
+                  ],
+                ),
+                const Divider(color: Colors.white, thickness: 1),
+                Row(
+                  children: [
+                    _buildRowItem(sr),
+                    _buildRowItem(challan['challanNumber']),
+                    _buildRowItem(challan['beforeDueDate'].toString()),
+                    _buildStatusItem(challan['status']),
+                    IconButton(
+                      onPressed: () {
+                        _printForm(challan);
+                      },
+                      icon: const Icon(Icons.print, color: Colors.white,),
+                      tooltip: 'Print Challan',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        
       ),
     );
   }
   void _printForm(DocumentSnapshot challanData) async {
-    bool isPaid = challanData?['status'] == 'Paid'; // Check if status is paid
+    bool isPaid = challanData['status'] == 'Paid'; // Check if status is paid
 
     // Load image asynchronously
     ByteData imageData = await rootBundle.load('assets/paid.png');
@@ -159,7 +158,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       pw.Page(
         build: (pw.Context context) {
           return pw.Container(
-            padding: pw.EdgeInsets.all(20),
+            padding: const pw.EdgeInsets.all(20),
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
@@ -171,12 +170,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ),
                 pw.Divider(),
                 pw.SizedBox(height: 10),
-                pw.Text('User Details', style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold)),
+                pw.Text('User Details', style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold,)),
                 pw.SizedBox(height: 10),
                 pw.Container(
-                  decoration: pw.BoxDecoration(
+                  decoration: const pw.BoxDecoration(
                   ),
-                  padding: pw.EdgeInsets.all(10),
+                  padding: const pw.EdgeInsets.all(10),
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -185,7 +184,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         children: [
 
                           pw.Text('Name: ${userData?["firstName"]}'.toUpperCase()),
-                          pw.Text('Issue Date: ${formatDate(challanData?["issueDate"] as Timestamp)}'),
+                          pw.Text('Issue Date: ${formatDate(challanData["issueDate"] as Timestamp)}'),
                         ],
                       ),
                       pw.SizedBox(height: 5),
@@ -193,7 +192,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
                           pw.Text('RollNo: ${userData?["rollNo"]}'),
-                          pw.Text('Due Date: ${formatDate(challanData?["dueDate"] as Timestamp)}'),
+                          pw.Text('Due Date: ${formatDate(challanData["dueDate"] as Timestamp)}'),
 
                         ],
                       ),
@@ -215,9 +214,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 pw.SizedBox(height: 10),
                 pw.Container(
                   decoration: pw.BoxDecoration(
-                    border: pw.Border.all(color: PdfColor.fromInt(0xff487557), width: 1),
+                    border: pw.Border.all(color: const PdfColor.fromInt(0xff487557), width: 1),
                   ),
-                  padding: pw.EdgeInsets.all(10),
+                  padding: const pw.EdgeInsets.all(10),
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -225,35 +224,35 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
                           pw.Text('Mess Fee:'),
-                          pw.Text('${challanData?["messFee"]}/- PKR'),
+                          pw.Text('${challanData["messFee"]}/- PKR'),
                         ],
                       ),
                       pw.Row(
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
                           pw.Text('Parking charges:'),
-                          pw.Text('${challanData?["parkingCharges"]}/- PKR'),
+                          pw.Text('${challanData["parkingCharges"]}/- PKR'),
                         ],
                       ),
                       pw.Row(
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
                           pw.Text('Electricity Fee:'),
-                          pw.Text('${challanData?["electricityFee"]}/- PKR'),
+                          pw.Text('${challanData["electricityFee"]}/- PKR'),
                         ],
                       ),
                       pw.Row(
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
                           pw.Text('Water charges:'),
-                          pw.Text('${challanData?["waterCharges"]}/- PKR'),
+                          pw.Text('${challanData["waterCharges"]}/- PKR'),
                         ],
                       ),
                       pw.Row(
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
                           pw.Text('Room charges:'),
-                          pw.Text('${challanData?["roomCharges"]}/- PKR'),
+                          pw.Text('${challanData["roomCharges"]}/- PKR'),
                         ],
                       ),
                     ],
@@ -265,7 +264,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
                     pw.Text('Before DueDate:', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                    pw.Text('${challanData?["beforeDueDate"]}/- PKR', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                    pw.Text('${challanData["beforeDueDate"]}/- PKR', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
                   ],
                 ),
                 pw.SizedBox(height: 10),
@@ -273,7 +272,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
                   pw.Text('After DueDate:', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                    pw.Text('${challanData?["afterDueDate"]}/- PKR', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                    pw.Text('${challanData["afterDueDate"]}/- PKR', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
                   ],
                 ),
                 pw.SizedBox(height: 20),
@@ -285,7 +284,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       '3. The additional amount collected after the due date will be used for need\n'
                       '   based scholarship purposes.\n'
                       '4. Semester fee includes tuition fee and other charges.',
-                  style: pw.TextStyle(fontSize: 12),
+                  style: const pw.TextStyle(fontSize: 12),
                 ),
                 pw.SizedBox(height: 40),
                 if (isPaid)
@@ -311,39 +310,39 @@ class _HistoryScreenState extends State<HistoryScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Challan Details',style: TextStyle(color: Colors.blue),),
+          title: const Text('Challan Details',style: TextStyle(color: Colors.blue),),
           content:Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildDetailRow('Challan Number', _buildStyledContainer(challan['challanNumber'], Colors.cyan)),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Student Name', Text(challan['studentName'])),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Status', _buildStatusColor(challan['status']),),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Block No', Text(challan['blockNo'])),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Room No', Text(challan['roomNo'])),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Mess Fee', Text(challan['messFee'].toString())),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Parking Charges', Text(challan['parkingCharges'].toString())),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Electricity Fee', Text(challan['electricityFee'].toString())),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Water Charges', Text(challan['waterCharges'].toString())),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Room Charges', Text(challan['roomCharges'].toString())),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Before DueDate', Text(challan['beforeDueDate'].toString())),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('After DueDate', Text(challan['afterDueDate'].toString())),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Issue Date', Text(DateFormat('dd-MM-yyyy').format(challan['issueDate'].toDate().toLocal()))),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               _buildDetailRow('Due Date', Text(DateFormat('dd-MM-yyyy').format(challan['dueDate'].toDate().toLocal()))),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
             ],
           ),
           actions: [
@@ -370,7 +369,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       children: [
         Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         valueWidget,
       ],
@@ -379,14 +378,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   Widget _buildStyledContainer(String text, Color color) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 10,
         ),
@@ -398,8 +397,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white
           ),
         ),
       ),
@@ -416,14 +416,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
       statusColor = Colors.red;
     }
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
       decoration: BoxDecoration(
         color: statusColor,
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: Text(
         status,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 10,
         ),
@@ -432,7 +432,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
   Widget _buildRowItem(String text) {
     return Expanded(
-      child: Center(child: Text(text)),
+      child: Center(child: Text(text,style: const TextStyle( color: Colors.white,),)),
     );
   }
 
@@ -457,7 +457,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               color: statusColor,
               size: 18,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
               status,
               style: TextStyle(

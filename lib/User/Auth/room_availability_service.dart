@@ -5,8 +5,8 @@ class RoomAvailabilityService {
 
   Future<void> initializeRoomAvailability() async {
     final blocks = ['A', 'B', 'C'];
-    final roomsPerBlock = 4;
-    final seatsPerRoom = 4;
+    const roomsPerBlock = 4;
+    const seatsPerRoom = 4;
 
     for (String block in blocks) {
       for (int roomNumber = 1; roomNumber <= roomsPerBlock; roomNumber++) {

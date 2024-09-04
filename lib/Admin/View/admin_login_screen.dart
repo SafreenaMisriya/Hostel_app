@@ -6,6 +6,7 @@ import 'package:hostel_app/Res/Widgets/CustomTextformField.dart';
 import 'package:hostel_app/Res/Widgets/app_text.dart';
 import 'package:hostel_app/Res/Widgets/custom_botton.dart';
 
+import '../../Res/AppColors/appColors.dart';
 import '../Controller/admin_login_Controller.dart';
 
 class AdminLoginScreen extends StatefulWidget {
@@ -27,9 +28,9 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () {
-              Get.to(() => WelcomeScreen());
+              Get.to(() => const WelcomeScreen());
             },
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
           backgroundColor: Colors.white,
         ),
@@ -50,17 +51,17 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                             'assets/logo.jpg', width: 200, height: 200),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Center(
+                    const SizedBox(height: 10),
+                    const Center(
                       child: AppText(
                         text: 'Login your account',
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    AppText(text: 'Email', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 20),
+                    const AppText(text: 'Email', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       hintText: 'Enter your Email',
                       controller: controller.emailController,
@@ -74,9 +75,9 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    AppText(text: 'Password', fontSize: 16),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    const AppText(text: 'Password', fontSize: 16),
+                    const SizedBox(height: 10),
                     CustomTextFormField(
                       hintText: 'Enter your Password',
                       controller: controller.passwordController,
@@ -88,7 +89,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Obx(() {
                       return Column(
                         children: [
@@ -100,24 +101,24 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                 ? 'Loading...'
                                 : 'Login',
                             backgroundColor: controller.isLoading.value ? Colors
-                                .grey : Colors.green,
+                                .grey :AppColors.blue3,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           if (controller.errorMessage
                               .isNotEmpty) // Display error message if not empty
                             Center(
                               child: Text(
                                 controller.errorMessage.value,
-                                style: TextStyle(color: Colors.red),
+                                style: const TextStyle(color: Colors.red),
                               ),
                             ),
                         ],
                       );
                     }),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     GestureDetector(
-                        onTap: (){Get.to(()=>AdminSignUpScreen());},
-                        child: Text('SignUp',style: TextStyle(color: Colors.black),)),
+                        onTap: (){Get.to(()=>const AdminSignUpScreen());},
+                        child: const Text('SignUp',style: TextStyle(color: Colors.black),)),
 
                   ],
                 ),

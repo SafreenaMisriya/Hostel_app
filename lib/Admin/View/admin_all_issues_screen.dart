@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:hostel_app/Res/AppColors/appColors.dart';
 import 'package:hostel_app/Res/Widgets/InternetConnectivityError.dart';
 import '../../Res/Widgets/app_text.dart';
 import '../../Res/Widgets/custom_botton.dart';
@@ -86,27 +87,28 @@ class _AdminAllIssuesScreenState extends State<AdminAllIssuesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color:AppColors.blue3),
         centerTitle: true,
-        title: AppText(
+        title: const AppText(
           text: 'Students Issues',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor: AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(() => AdminIssuesHistory());
+              Get.to(() => const AdminIssuesHistory());
             },
-            icon: Icon(Icons.history),
+            icon: const Icon(Icons.history,color: AppColors.blue3,),
           ),
         ],
       ),
       body: isLoading
-          ? InternetConnectivityError()
+          ? const InternetConnectivityError()
           : issuesList.isNotEmpty
           ? Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -115,13 +117,18 @@ class _AdminAllIssuesScreenState extends State<AdminAllIssuesScreen> {
           itemBuilder: (context, index) {
             IssueModel issue = issuesList[index];
             return Container(
-              margin: EdgeInsets.only(bottom: 10),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               height: 220,
               width: double.infinity,
               decoration: BoxDecoration(
+                 gradient: const LinearGradient(
+            colors: [AppColors.blue1, AppColors.blue3],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomCenter,
+          ),
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.green.shade50,
+                color: const Color.fromARGB(255, 190, 233, 243),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,10 +142,10 @@ class _AdminAllIssuesScreenState extends State<AdminAllIssuesScreen> {
                         children: [
                           userData?['imageUrl'] != null
                               ? Container(
-                            padding: EdgeInsets.all(4),
+                            padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: Colors.green),
+                              border: Border.all(color:AppColors.blue3),
                             ),
                             child: Container(
                               decoration: BoxDecoration(
@@ -159,11 +166,12 @@ class _AdminAllIssuesScreenState extends State<AdminAllIssuesScreen> {
                             ),
                           )
                               : Image.asset('assets/person.png', width: 50, height: 50),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           AppText(
                             text: '${issue.firstName}'.length > 16 ? ' ${issue.firstName}'.substring(0, 16) : ' ${issue.firstName}',
                             fontWeight: FontWeight.w500,
-                            fontSize: 10,
+                            fontSize: 15,
+                            textColor: Colors.white,
                           ),
                         ],
                       ),
@@ -171,21 +179,26 @@ class _AdminAllIssuesScreenState extends State<AdminAllIssuesScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppText(
+                            textColor: Colors.white,
                             text: 'Username: ${issue.firstName}',
                             fontSize: 10,
+                            
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           AppText(
+                            textColor: Colors.white,
                             text: 'Room Number: ${issue.roomNumber}',
                             fontSize: 10,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           AppText(
+                            textColor: Colors.white,
                             text: 'Email Id: ${issue.email}',
                             fontSize: 10,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           AppText(
+                            textColor: Colors.white,
                             text: 'Phone No: ${issue.phoneNumber}',
                             fontSize: 10,
                           ),
@@ -193,66 +206,67 @@ class _AdminAllIssuesScreenState extends State<AdminAllIssuesScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   RichText(
                     text: TextSpan(
-                      style: TextStyle(fontSize: 14.0, color: Colors.black),
+                      style: const TextStyle(fontSize: 14.0, color: Colors.black),
                       children: [
-                        TextSpan(
+                        const TextSpan(
                           text: 'Issue: ',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12,color: Colors.black),
                         ),
                         TextSpan(
                           text: issue.issue ?? '',
-                          style: TextStyle(fontSize: 12),
+                          style: const TextStyle(fontSize: 12,color: Colors.black),
                         ),
                       ],
                     ),
                   ),
                   RichText(
                     text: TextSpan(
-                      style: TextStyle(fontSize: 14.0, color: Colors.black),
+                      style: const TextStyle(fontSize: 14.0, color: Colors.black),
                       children: [
-                        TextSpan(
+                        const TextSpan(
                           text: 'Student Comment: ',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12,color: Colors.black),
                         ),
                         TextSpan(
                           text: issue.reason ?? '',
-                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          style: const TextStyle(color: Colors.black, fontSize: 12),
                         ),
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomBotton(
-                        width: 140,
-                        height: 30,
+                        width: 160,
+                        height: 40,
                         onTap: () => resolveIssue(issue.id!, issue.toMap()),
                         label: 'Resolve',
-                        backgroundColor: Colors.blue,
+                        textColor: Colors.black,
+                        backgroundColor: Colors.white,
                       ),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       CustomBotton(
-                        width: 140,
-                        height: 30,
+                        width: 160,
+                        height: 40,
                         onTap: () => rejectIssue(issue.id!, issue.toMap()),
                         label: 'Reject',
                         backgroundColor: Colors.red,
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
               ),
             );
           },
         ),
       )
-          : Center(
+          : const Center(
         child: AppText(
           text: 'No Data Found',
           fontWeight: FontWeight.bold,

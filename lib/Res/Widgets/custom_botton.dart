@@ -40,13 +40,13 @@ class CustomBotton extends StatelessWidget {
         height: height ?? 52,
         width: width ?? 360,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius ?? 14),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12),
           border: border ??
               Border.all(
                 color: borderColor ?? Colors.transparent,
                 width: 1,
               ),
-          color: backgroundColor ?? Colors.green,
+          color: backgroundColor ?? AppColors.blue3,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -56,8 +56,6 @@ class CustomBotton extends StatelessWidget {
                 height: imageheight,
                 width : imageWidth,
                 imagePath!,
-                color: iconColor ,
-
               ),
             SizedBox(
               width: spacing,
