@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hostel_app/Res/AppColors/appColors.dart';
 import 'package:hostel_app/Res/Widgets/InternetConnectivityError.dart';
 
 import '../../Res/Widgets/CustomTextformField.dart';
@@ -34,16 +35,17 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.blue3),
         centerTitle: true,
         title: const AppText(
           text: 'Create Staff',
           fontWeight: FontWeight.w600,
           fontSize: 20,
-          textColor: Colors.white,
+          textColor:  AppColors.blue3,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       ),
       body: isLoading? const InternetConnectivityError():SafeArea(
         child: Center(
@@ -167,7 +169,7 @@ class _AdminCreateStaffState extends State<AdminCreateStaff> {
                         }
                       },
                       label: 'Create Staff',
-                      backgroundColor: Colors.green,
+                      backgroundColor:  AppColors.blue3,
                     ),
                     const SizedBox(height: 20),
                   ],
